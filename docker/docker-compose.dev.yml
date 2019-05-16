@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+  phpMyAdmin:
+    container_name: gestionale-pma
+    image: phpmyadmin/phpmyadmin
+    restart: always
+    environment:
+      PMA_HOST: database
+      PMA_USER: gestionale
+      PMA_PASSWORD: gestionale
+    links:
+      - mariadb:database
+    ports:
+      - 8000:80

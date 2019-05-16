@@ -1,0 +1,47 @@
+version: '3'
+
+services:
+  web:
+    container_name: gestionale-web
+    image: nginx:alpine
+    ports:
+      - "8080:80"
+    volumes:
+      - ../src:/src
+      - ../site.conf:/etc/nginx/conf.d/default.conf:ro
+    links:
+      - php
+
+
+  php:
+    container_name: gestionale-php
+    build:
+      context: ./php
+    volumes:
+      - ../src:/src
+    links:
+      - mariadb:database
+
+  composer:
+    container_name: gestionale-cmp
+    restart: 'no'
+    image: composer/composer:php7
+    command: install
+    volumes:
+      - ..:/app
+
+  mariadb:
+    container_name: gestionale-mdb
+    image: mariadb
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: gestionale
+      MYSQL_DATABASE: gestionale
+      MYSQL_USER: gestionale
+      MYSQL_PASSWORD: gestionale
+    volumes:
+      - database-data:/var/lib/mysql
+      - ../sql:/sql
+
+volumes:
+  database-data:

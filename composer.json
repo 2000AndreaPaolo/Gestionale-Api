@@ -1,0 +1,17 @@
+{
+    "name": "2000AndreaPaolo/gestionale-api",
+    "type": "project",
+    "license": "private",
+    "authors": [
+        {
+            "name": "2000AndreaPaolo",
+            "email": "2000.andrea.paolo@gmail.com"
+        }
+    ],
+    "require": {
+        "klein/klein": "^2.1"
+    },
+    "config": {
+        "vendor-dir": "src/vendor"
+    }
+}
