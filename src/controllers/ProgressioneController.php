@@ -4,18 +4,20 @@ class ProgressioneController{
 
     // GET /admin/progressione
     static function getProgressione($req, $res, $service, $app){
-        $stm = $app->db->prepare('SELECT progressione.id_progressione, progressione.serie, progressione.ripetizioni, progressione.note, esercizio.id_esercizio, esercizio.nome FROM progressione INNER JOIN esercizio ON progressione.id_esercizio = esercizio.id_esercizio WHERE progressione = false');
+        $stm = $app->db->prepare('SELECT progressione.id_scheda, progressione.id_progressione, progressione.giorno, progressione.serie, progressione.ripetizioni, progressione.note, esercizio.id_esercizio, esercizio.descrizione FROM progressione INNER JOIN esercizio ON progressione.id_esercizio = esercizio.id_esercizio WHERE progressione.deleted = false');
         $stm->execute();
         $dbres = $stm->fetchAll(PDO::FETCH_ASSOC);
 
         $data = array_map(function($entry){
             return [
+                'id_scheda' => +$entry['id_scheda'],
                 'id_progressione' => +$entry['id_progressione'],
+                'giorno' => +$entry['giorno'],
                 'serie' => $entry['serie'],
                 'ripetizioni' => $entry['ripetizioni'],
                 'note' => $entry['note'],
                 'id_esercizio' => +$entry['id_esercizio'],
-                'nome' => $entry['nome']
+                'nome_esercizio' => $entry['descrizione']
             ];
         }, $dbres);
 
@@ -26,10 +28,12 @@ class ProgressioneController{
     static function addProgressione($req, $res, $service, $app){
         $body = $req->body();
         $body = json_decode($body, true);
-        $stm = $app->db->prepare('INSERT INTO progressione ( serie, ripetizioni, id_esercizio, note ) VALUES (:serie,:ripetizioni, :id_esercizio, :note)');
+        $stm = $app->db->prepare('INSERT INTO progressione ( id_scheda, id_esercizio, giorno, serie, ripetizioni, note ) VALUES (:id_scheda, :id_esercizio, :giorno, :serie, :ripetizioni, :note)');
+        $stm->bindValue(":id_scheda", $body['id_scheda']);
+        $stm->bindValue(":id_esercizio", $body['id_esercizio']);
+        $stm->bindValue(":giorno", $body['giorno']);
         $stm->bindValue(":serie", $body['serie']);
         $stm->bindValue(":ripetizioni", $body['ripetizioni']);
-        $stm->bindValue(":id_esercizio", $body['id_esercizio']);
         $stm->bindValue(":note", $body['note']);
 	    if($stm->execute()){
 			$res->json(["message" => "OK", "code" => 200 ]);
@@ -42,12 +46,14 @@ class ProgressioneController{
     static function modifyProgressione($req, $res, $service, $app){
         $body = $req->body();
         $body = json_decode($body, true);
-        $stm = $app->db->prepare('UPDATE progressione SET serie=:serie, ripetizioni=:ripetizioni, note=:note, id_esercizio=:id_esercizio WHERE id_progressione=:id_progressione');
+        $stm = $app->db->prepare('UPDATE progressione SET id_scheda=:id_scheda, id_esercizio=:id_esercizio, giorno=:giorno, serie=:serie, ripetizioni=:ripetizioni, note=:note WHERE id_progressione=:id_progressione');
         $stm->bindValue(":id_progressione", $body['id_progressione']);
+        $stm->bindValue(":id_scheda", $body['id_scheda']);
+        $stm->bindValue(":id_esercizio", $body['id_esercizio']);
+        $stm->bindValue(":giorno", $body['giorno']);
         $stm->bindValue(":serie", $body['serie']);
         $stm->bindValue(":ripetizioni", $body['ripetizioni']);
         $stm->bindValue(":note", $body['note']);
-        $stm->bindValue(":id_esercizio", $body['id_esercizio']);
         $stm->execute();
 		if($stm->rowCount() > 0){
 			$res->json(["message" => "OK", "code" => 200 ]);
