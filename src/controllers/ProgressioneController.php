@@ -4,7 +4,7 @@ class ProgressioneController{
 
     // GET /admin/progressione
     static function getProgressione($req, $res, $service, $app){
-        $stm = $app->db->prepare('SELECT progressione.id_scheda, progressione.id_progressione, progressione.giorno, progressione.serie, progressione.ripetizioni, progressione.note, esercizio.id_esercizio, esercizio.descrizione FROM progressione INNER JOIN esercizio ON progressione.id_esercizio = esercizio.id_esercizio WHERE progressione.deleted = false');
+        $stm = $app->db->prepare('SELECT progressione.id_scheda, progressione.id_progressione, progressione.giorno, progressione.serie, progressione.ripetizioni, progressione.note, esercizio.id_esercizio, esercizio.descrizione FROM progressione INNER JOIN esercizio ON progressione.id_esercizio = esercizio.id_esercizio WHERE progressione.deleted = false ORDER BY progressione.giorno ASC, progressione.id_progressione ASC');
         $stm->execute();
         $dbres = $stm->fetchAll(PDO::FETCH_ASSOC);
 

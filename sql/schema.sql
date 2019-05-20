@@ -45,11 +45,21 @@ CREATE TABLE scheda(
 
 CREATE TABLE progressione(
     id_progressione SERIAL PRIMARY KEY,
-    id_scheda    BIGINT UNSIGNED NOT NULL REFERENCES scheda (id_scheda),
+    id_scheda       BIGINT UNSIGNED NOT NULL REFERENCES scheda (id_scheda),
     id_esercizio    BIGINT UNSIGNED NOT NULL REFERENCES esercizio (id_esercizio),
     giorno          INT(10) NOT NULL,
     serie           INT(10) NOT NULL,
     ripetizioni     INT(10) NOT NULL,
     note            TEXT,
     deleted         BOOLEAN NOT NULL DEFAULT FALSE
+);
+
+CREATE TABLE plicometria(
+    id_plicometria      SERIAL PRIMARY KEY,
+    id_atleta           BIGINT UNSIGNED NOT NULL REFERENCES atleta (id_atleta),
+    pettorale           FLOAT(10) NOT NULL,
+    addome              FLOAT(10) NOT NULL,
+    gamba               FLOAT(10) NOT NULL,
+    note                TEXT,
+    deleted             BOOLEAN NOT NULL DEFAULT FALSE
 );

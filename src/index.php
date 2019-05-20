@@ -55,6 +55,12 @@ $klein->respond('POST', '/admin/progressione', ['ProgressioneController', 'addPr
 $klein->respond('PUT', '/admin/progressione', ['ProgressioneController', 'modifyProgressione']);
 $klein->respond('DELETE', '/admin/progressione', ['ProgressioneController', 'deleteProgressione']);
 
+//Admin - progressione
+$klein->respond('GET', '/admin/plicometria', ['PlicometriaController', 'getPlicometrie']);
+$klein->respond('POST', '/admin/plicometria', ['PlicometriaController', 'addPlicometria']);
+$klein->respond('PUT', '/admin/plicometria', ['PlicometriaController', 'modifyPlicometria']);
+$klein->respond('DELETE', '/admin/plicometria', ['PlicometriaController', 'deleteScheda']);
+
 /*
  * UTILS
  ****************/

@@ -33,3 +33,7 @@ INSERT INTO scheda ( nome, durata, data_inizio, data_fine, id_atleta ) VALUES
 INSERT INTO progressione ( id_esercizio, id_scheda, giorno, serie, ripetizioni, note ) VALUES 
 (1, 1, 1, 3, 10, 'Prova Prova'),
 (1, 2, 2, 3, 10, 'Prova prova');
+
+-- Insert rows into table 'progressione'
+INSERT INTO plicometria ( id_atleta, pettorale, addome, gamba, note ) VALUES 
+(1, 1, 1, 3, 'Prova Prova');
