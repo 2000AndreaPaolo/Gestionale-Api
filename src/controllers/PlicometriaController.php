@@ -69,7 +69,7 @@ class PlicometriaController{
     }
 
     // DELETE /admin/plicometria
-    static function deleteScheda($req, $res, $service, $app){
+    static function deletePlicometria($req, $res, $service, $app){
         $body = $req->body();
         $body = json_decode($body, true);
         $stm = $app->db->prepare('UPDATE plicometria SET deleted=true WHERE id_plicometria=:id_plicometria');

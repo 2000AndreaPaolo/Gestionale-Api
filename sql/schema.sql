@@ -66,3 +66,23 @@ CREATE TABLE plicometria(
     note                TEXT,
     deleted             BOOLEAN NOT NULL DEFAULT FALSE
 );
+
+CREATE TABLE programma(
+    id_programma    SERIAL PRIMARY KEY,
+    id_atleta       BIGINT UNSIGNED NOT NULL REFERENCES atleta (id_atleta),
+    data_inizio     DATE NOT NULL,
+    data_fine       DATE NOT NULL,
+    note            TEXT,
+    deleted         BOOLEAN NOT NULL DEFAULT FALSE
+);
+
+CREATE TABLE programmazione(
+    id_programmazione   SERIAL PRIMARY KEY,
+    id_programma           BIGINT UNSIGNED NOT NULL REFERENCES programma (id_programma),
+    id_esercizio        BIGINT UNSIGNED NOT NULL REFERENCES esercizio (id_esercizio),
+    giorno              INT(10) NOT NULL,
+    serie               INT(10) NOT NULL,
+    ripetizioni         INT(10) NOT NULL,
+    note                TEXT,
+    deleted             BOOLEAN NOT NULL DEFAULT FALSE
+);

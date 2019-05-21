@@ -55,11 +55,23 @@ $klein->respond('POST', '/admin/progressione', ['ProgressioneController', 'addPr
 $klein->respond('PUT', '/admin/progressione', ['ProgressioneController', 'modifyProgressione']);
 $klein->respond('DELETE', '/admin/progressione', ['ProgressioneController', 'deleteProgressione']);
 
-//Admin - progressione
+//Admin - plicometria
 $klein->respond('GET', '/admin/plicometria', ['PlicometriaController', 'getPlicometrie']);
 $klein->respond('POST', '/admin/plicometria', ['PlicometriaController', 'addPlicometria']);
 $klein->respond('PUT', '/admin/plicometria', ['PlicometriaController', 'modifyPlicometria']);
-$klein->respond('DELETE', '/admin/plicometria', ['PlicometriaController', 'deleteScheda']);
+$klein->respond('DELETE', '/admin/plicometria', ['PlicometriaController', 'deletePlicometria']);
+
+//Admin - programmazione
+$klein->respond('GET', '/admin/programmazione', ['ProgrammazioneController', 'getProgrammazione']);
+$klein->respond('POST', '/admin/programmazione', ['ProgrammazioneController', 'addProgrammazione']);
+$klein->respond('PUT', '/admin/programmazione', ['ProgrammazioneController', 'modifyProgrammazione']);
+$klein->respond('DELETE', '/admin/programmazione', ['ProgrammazioneController', 'deleteProgrammazione']);
+
+//Admin - programma
+$klein->respond('GET', '/admin/programma', ['ProgrammaController', 'getProgramma']);
+$klein->respond('POST', '/admin/programma', ['ProgrammaController', 'addProgramma']);
+$klein->respond('PUT', '/admin/programma', ['ProgrammaController', 'modifyProgramma']);
+$klein->respond('DELETE', '/admin/programma', ['ProgrammaController', 'deleteProgramma']);
 
 /*
  * UTILS
