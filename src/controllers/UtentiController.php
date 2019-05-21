@@ -4,7 +4,7 @@ class UtentiController{
 
     // GET /admin/atleta
     static function getAtleti($req, $res, $service, $app){
-        $stm = $app->db->prepare('SELECT id_atleta, nome, cognome, username FROM atleta WHERE deleted=false');
+        $stm = $app->db->prepare('SELECT id_atleta, nome, cognome, data_nascita,username FROM atleta WHERE deleted=false');
         $stm->execute();
         $dbres = $stm->fetchAll(PDO::FETCH_ASSOC);
 
@@ -13,6 +13,7 @@ class UtentiController{
                 'id_atleta' => +$entry['id_atleta'],
                 'nome' => $entry['nome'],
                 'cognome' => $entry['cognome'],
+                'data_nascita' => $entry['data_nascita'],
                 'username' => $entry['username']
             ];
         }, $dbres);

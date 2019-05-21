@@ -1,11 +1,11 @@
 USE gestionale;
 
 -- Insert rows into table 'atleta'
-INSERT INTO atleta ( nome, cognome, username, password ) VALUES 
-('alberto', 'rossi', 'alberto.rossi', 'demo'),
-('luciano', 'paolo', 'luciano.paolo', 'demo'),
-('valentina', 'paolo', 'valentina.paolo', 'demo'),
-('gabriele', 'cirri', 'gabriele.cirri', 'demo');
+INSERT INTO atleta ( nome, cognome, username, password, data_nascita ) VALUES 
+('alberto', 'rossi', 'alberto.rossi', 'demo', '1994-01-20'),
+('luciano', 'paolo', 'luciano.paolo', 'demo', '1994-01-20'),
+('valentina', 'paolo', 'valentina.paolo', 'demo', '1994-01-20'),
+('gabriele', 'cirri', 'gabriele.cirri', 'demo', '1994-01-20');
 
 -- Insert rows into table 'coach'
 INSERT INTO coach ( nome, cognome, username, password ) VALUES 
@@ -35,5 +35,5 @@ INSERT INTO progressione ( id_esercizio, id_scheda, giorno, serie, ripetizioni, 
 (1, 2, 2, 3, 10, 'Prova prova');
 
 -- Insert rows into table 'progressione'
-INSERT INTO plicometria ( id_atleta, pettorale, addome, gamba, note ) VALUES 
-(1, 1, 1, 3, 'Prova Prova');
+INSERT INTO plicometria ( id_atleta, pettorale, addome, gamba, percentuale, note ) VALUES 
+(1, 1, 1, 3, 15, 'Prova Prova');

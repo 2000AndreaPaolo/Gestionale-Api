@@ -3,12 +3,13 @@ CREATE SCHEMA gestionale;
 USE gestionale;
 
 CREATE TABLE atleta(
-    id_atleta   SERIAL PRIMARY KEY,
-    nome        VARCHAR(60) NOT NULL,
-    cognome     VARCHAR(60) NOT NULL,
-    username    VARCHAR(60) NOT NULL UNIQUE,
-    password    VARCHAR(60) NOT NULL,
-    deleted     BOOLEAN NOT NULL DEFAULT FALSE
+    id_atleta       SERIAL PRIMARY KEY,
+    nome            VARCHAR(60) NOT NULL,
+    cognome         VARCHAR(60) NOT NULL,
+    username        VARCHAR(60) NOT NULL UNIQUE,
+    password        VARCHAR(60) NOT NULL,
+    data_nascita    DATE NOT NULL,
+    deleted         BOOLEAN NOT NULL DEFAULT FALSE
 );
 
 CREATE TABLE coach(
@@ -60,6 +61,7 @@ CREATE TABLE plicometria(
     pettorale           FLOAT(10) NOT NULL,
     addome              FLOAT(10) NOT NULL,
     gamba               FLOAT(10) NOT NULL,
+    percentuale         FLOAT(10) NOT NULL,
     note                TEXT,
     deleted             BOOLEAN NOT NULL DEFAULT FALSE
 );
