@@ -35,5 +35,5 @@ INSERT INTO progressione ( id_esercizio, id_scheda, giorno, serie, ripetizioni, 
 (1, 2, 2, 3, 10, 'Prova prova');
 
 -- Insert rows into table 'progressione'
-INSERT INTO plicometria ( id_atleta, pettorale, addome, gamba, percentuale, note ) VALUES 
-(1, 1, 1, 3, 15, 'Prova Prova');
+INSERT INTO plicometria ( id_atleta, pettorale, addome, gamba, percentuale, data_rilevazione, note ) VALUES 
+(1, 1, 1, 3, 15, '2019-05-19', 'Prova Prova');

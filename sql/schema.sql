@@ -62,6 +62,7 @@ CREATE TABLE plicometria(
     addome              FLOAT(10) NOT NULL,
     gamba               FLOAT(10) NOT NULL,
     percentuale         FLOAT(10) NOT NULL,
+    data_rilevazione    DATE NOT NULL,
     note                TEXT,
     deleted             BOOLEAN NOT NULL DEFAULT FALSE
 );
