@@ -78,12 +78,39 @@ CREATE TABLE programma(
 
 CREATE TABLE programmazione(
     id_programmazione   SERIAL PRIMARY KEY,
-    id_programma           BIGINT UNSIGNED NOT NULL REFERENCES programma (id_programma),
+    id_programma        BIGINT UNSIGNED NOT NULL REFERENCES programma (id_programma),
     id_esercizio        BIGINT UNSIGNED NOT NULL REFERENCES esercizio (id_esercizio),
     giorno              INT(10) NOT NULL,
     serie               INT(10) NOT NULL,
     ripetizioni         INT(10) NOT NULL,
     carico              INT(10) NOT NULL,
+    note                TEXT,
+    deleted             BOOLEAN NOT NULL DEFAULT FALSE
+);
+
+CREATE TABLE peso(
+    id_preso    SERIAL PRIMARY KEY,
+    id_atleta   BIGINT UNSIGNED NOT NULL REFERENCES atleta (id_atleta),
+    peso        FLOAT(10) NOT NULL,
+    data        DATE DEFAULT NOW(),
+    note        TEXT,
+    deleted     BOOLEAN NOT NULL DEFAULT FALSE
+);
+
+CREATE TABLE note(
+    id_note    SERIAL PRIMARY KEY,
+    id_atleta   BIGINT UNSIGNED NOT NULL REFERENCES atleta (id_atleta),
+    data        DATE DEFAULT NOW(),
+    note        TEXT,
+    deleted     BOOLEAN NOT NULL DEFAULT FALSE
+);
+
+CREATE TABLE prestazione(
+    id_prestazioni      SERIAL PRIMARY KEY,
+    id_atleta           BIGINT UNSIGNED NOT NULL REFERENCES atleta (id_atleta),
+    id_esercizio        BIGINT UNSIGNED NOT NULL REFERENCES esercizio (id_esercizio),
+    peso                FLOAT(10) NOT NULL,
+    data                DATE DEFAULT NOW(),
     note                TEXT,
     deleted             BOOLEAN NOT NULL DEFAULT FALSE
 );
