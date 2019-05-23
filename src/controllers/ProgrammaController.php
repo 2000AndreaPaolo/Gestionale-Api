@@ -4,7 +4,7 @@ class ProgrammaController{
 
     // GET /admin/programma
     static function getProgramma($req, $res, $service, $app){
-        $stm = $app->db->prepare('SELECT programma.*, atleta.nome, atleta.cognome, FROM programma INNER JOIN atleta ON programma.id_atleta=atleta.id_atleta WHERE programma.deleted=false');
+        $stm = $app->db->prepare('SELECT programma.*, atleta.nome, atleta.cognome FROM programma INNER JOIN atleta ON programma.id_atleta=atleta.id_atleta WHERE programma.deleted=false');
         $stm->execute();
         $dbres = $stm->fetchAll(PDO::FETCH_ASSOC);
 
@@ -45,7 +45,7 @@ class ProgrammaController{
         $body = $req->body();
         $body = json_decode($body, true);
         $stm = $app->db->prepare('UPDATE programma SET id_atleta=:id_atleta, data_inizio=:data_inizio, data_fine=:data_fine, note=:note WHERE id_programma=:id_programma');
-        $stm->bindValue(":id_atleta", $body['id_scheda']);
+        $stm->bindValue(":id_atleta", $body['id_atleta']);
         $stm->bindValue(":data_inizio", $body['data_inizio']);
         $stm->bindValue(":data_fine", $body['data_fine']);
         $stm->bindValue(":note", $body['note']);

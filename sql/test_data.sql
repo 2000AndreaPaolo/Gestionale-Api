@@ -37,3 +37,13 @@ INSERT INTO progressione ( id_esercizio, id_scheda, giorno, serie, ripetizioni, 
 -- Insert rows into table 'progressione'
 INSERT INTO plicometria ( id_atleta, pettorale, addome, gamba, percentuale, data_rilevazione, note ) VALUES 
 (1, 1, 1, 3, 15, '2019-05-19', 'Prova Prova');
+
+-- Insert rows into table 'programma'
+INSERT INTO programma ( id_atleta, data_inizio, data_fine, note ) VALUES 
+(1, '2019-05-15', '2019-07-15', 'Prova'),
+(2, '2019-04-15', '2019-07-15', 'Prova Prova');
+
+-- Insert rows into table 'programmazione'
+INSERT INTO programmazione ( id_esercizio, id_programma, giorno, serie, ripetizioni, carico, note ) VALUES 
+(1,1,1,4,15,80,'Prova'),
+(1,1,1,4,15,80,'Prova');

@@ -83,6 +83,7 @@ CREATE TABLE programmazione(
     giorno              INT(10) NOT NULL,
     serie               INT(10) NOT NULL,
     ripetizioni         INT(10) NOT NULL,
+    carico              INT(10) NOT NULL,
     note                TEXT,
     deleted             BOOLEAN NOT NULL DEFAULT FALSE
 );
