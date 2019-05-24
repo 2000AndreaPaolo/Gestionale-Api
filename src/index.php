@@ -73,6 +73,24 @@ $klein->respond('POST', '/admin/programma', ['ProgrammaController', 'addProgramm
 $klein->respond('PUT', '/admin/programma', ['ProgrammaController', 'modifyProgramma']);
 $klein->respond('DELETE', '/admin/programma', ['ProgrammaController', 'deleteProgramma']);
 
+//Admin - peso
+$klein->respond('GET', '/admin/peso', ['PesoController', 'getPeso']);
+$klein->respond('POST', '/admin/peso', ['PesoController', 'addPeso']);
+$klein->respond('PUT', '/admin/peso', ['PesoController', 'modifyPeso']);
+$klein->respond('DELETE', '/admin/peso', ['PesoController', 'deletePeso']);
+
+//Admin - prestazione
+$klein->respond('GET', '/admin/prestazione', ['PrestazioneController', 'getPrestazione']);
+$klein->respond('POST', '/admin/prestazione', ['PrestazioneController', 'addPrestazione']);
+$klein->respond('PUT', '/admin/prestazione', ['PrestazioneController', 'modifyPrestazione']);
+$klein->respond('DELETE', '/admin/prestazione', ['PrestazioneController', 'deletePrestazione']);
+
+//Admin - note
+$klein->respond('GET', '/admin/note', ['NoteController', 'getNote']);
+$klein->respond('POST', '/admin/note', ['NoteController', 'addNote']);
+$klein->respond('PUT', '/admin/note', ['NoteController', 'modifyNote']);
+$klein->respond('DELETE', '/admin/note', ['NoteController', 'deleteNote']);
+
 /*
  * UTILS
  ****************/
