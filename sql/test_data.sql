@@ -47,3 +47,18 @@ INSERT INTO programma ( id_atleta, data_inizio, data_fine, note ) VALUES
 INSERT INTO programmazione ( id_esercizio, id_programma, giorno, serie, ripetizioni, carico, note ) VALUES 
 (1,1,1,4,15,80,'Prova'),
 (1,1,1,4,15,80,'Prova');
+
+-- Insert rows into table 'peso'
+INSERT INTO peso ( id_atleta, peso, note ) VALUES 
+(1,90,'Prova'),
+(2,88,'Prova');
+
+-- Insert rows into table 'prestazione'
+INSERT INTO prestazione ( id_atleta, id_esercizio, peso, note ) VALUES 
+(1,1,900,'Prova'),
+(2,1,888,'Prova');
+
+-- Insert rows into table 'note'
+INSERT INTO note ( id_atleta, note ) VALUES 
+(1,'Prova'),
+(2,'Prova');
