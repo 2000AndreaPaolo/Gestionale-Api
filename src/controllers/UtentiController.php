@@ -27,15 +27,16 @@ class UtentiController{
         $body = json_decode($body, true);
         $username = $body['nome'].'.'.$body['cognome'];
         $password = $body['nome'].'.'.$body['cognome'];
-        $stm = $app->db->prepare('INSERT INTO atleta ( nome, cognome, username, password ) VALUES (:nome, :cognome, :username, :password)');
+        $stm = $app->db->prepare('INSERT INTO atleta ( nome, cognome, username, password, data_nascita ) VALUES (:nome, :cognome, :username, :password, :data_nascita)');
         $stm->bindValue(":nome", $body['nome']);
         $stm->bindValue(":cognome", $body['cognome']);
         $stm->bindValue(":username", $username);
         $stm->bindValue(":password", $password);
+        $stm->bindValue(":data_nascita", $body['data_nascita']);
 	    if($stm->execute()){
 			$res->json(["message" => "OK", "code" => 200 ]);
 		}else{
-			$res->json(["message" => "Atleta non aggiunto", "code" => 500 ]);
+			$res->json(["message" => "Atleta non aggiunto", "code" => 500, "error" => $stm->errorInfo() ]);
 		}
     }
 
@@ -44,10 +45,11 @@ class UtentiController{
         $body = $req->body();
         $body = json_decode($body, true);
         $username = $body['nome'].'.'.$body['cognome'];
-        $stm = $app->db->prepare('UPDATE atleta SET nome=:nome, cognome=:cognome, username=:username WHERE id_atleta=:id_atleta');
+        $stm = $app->db->prepare('UPDATE atleta SET nome=:nome, cognome=:cognome, username=:username, data_nascita=:data_nascita WHERE id_atleta=:id_atleta');
         $stm->bindValue(":nome", $body['nome']);
         $stm->bindValue(":cognome", $body['cognome']);
         $stm->bindValue(":username", $username);
+        $stm->bindValue(":data_nascita", $body['data_nascita']);
         $stm->bindValue(":id_atleta", $body['id_atleta']);
         $stm->execute();
 		if($stm->rowCount() > 0){
