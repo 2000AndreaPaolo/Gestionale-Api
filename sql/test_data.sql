@@ -4,8 +4,7 @@ USE gestionale;
 INSERT INTO atleta ( nome, cognome, username, password, data_nascita ) VALUES 
 ('alberto', 'rossi', 'alberto.rossi', 'demo', '1994-01-20'),
 ('luciano', 'paolo', 'luciano.paolo', 'demo', '1994-01-20'),
-('valentina', 'paolo', 'valentina.paolo', 'demo', '1994-01-20'),
-('gabriele', 'cirri', 'gabriele.cirri', 'demo', '1994-01-20');
+('valentina', 'paolo', 'valentina.paolo', 'demo', '1994-01-20');
 
 -- Insert rows into table 'coach'
 INSERT INTO coach ( nome, cognome, username, password ) VALUES 

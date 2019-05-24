@@ -4,7 +4,7 @@ class NoteController{
 
     // GET /admin/note
     static function getNote($req, $res, $service, $app){
-        $stm = $app->db->prepare('SELECT note.*, atleta.nome, atleta.cognome FROM note INNER JOIN atleta ON note.id_atleta=peso.id_atleta WHERE note.deleted=false ORDER BY note.data DESC');
+        $stm = $app->db->prepare('SELECT note.*, atleta.nome, atleta.cognome FROM note INNER JOIN atleta ON note.id_atleta=atleta.id_atleta WHERE note.deleted=false ORDER BY note.data DESC');
         $stm->execute();
         $dbres = $stm->fetchAll(PDO::FETCH_ASSOC);
 
@@ -57,7 +57,7 @@ class NoteController{
         $body = $req->body();
         $body = json_decode($body, true);
         $stm = $app->db->prepare('UPDATE note SET deleted=true WHERE id_note=:id_note');
-        $stm->bindValue(":id_peso", $body['id_peso']);
+        $stm->bindValue(":id_note", $body['id_note']);
         $stm->execute();
 	    if($stm->rowCount() > 0){
 			$res->json(["message" => "OK", "code" => 200 ]);

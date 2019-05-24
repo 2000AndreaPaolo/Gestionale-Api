@@ -89,7 +89,7 @@ CREATE TABLE programmazione(
 );
 
 CREATE TABLE peso(
-    id_preso    SERIAL PRIMARY KEY,
+    id_peso    SERIAL PRIMARY KEY,
     id_atleta   BIGINT UNSIGNED NOT NULL REFERENCES atleta (id_atleta),
     peso        FLOAT(10) NOT NULL,
     data        DATE DEFAULT NOW(),
