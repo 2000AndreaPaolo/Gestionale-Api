@@ -4,7 +4,7 @@ require_once __DIR__ . '/vendor/autoload.php';
 
 header("Access-Control-Allow-Origin: *");
 header('Access-Control-Allow-Methods: POST, GET, DELETE, PUT, PATCH, OPTIONS');
-header('Access-Control-Allow-Headers: *');
+header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept, token');
 header('Access-Control-Allow-Credentials: true');
 
 foreach (glob("controllers/*Controller.php") as $filename)
@@ -27,6 +27,9 @@ $klein->respond(function ($request, $response, $service, $app) {
  ***************/
 
 $klein->respond('GET', '/', ['IndexController', 'get']);
+
+//Admin - auth
+$klein->respond('POST', '/admin/auth', ['AuthController', 'adminLogin']);
 
 //Admin - atleta
 $klein->respond('GET', '/admin/atleta', ['UtentiController', 'getAtleti']);

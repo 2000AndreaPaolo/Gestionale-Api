@@ -50,9 +50,11 @@ function parseJwt($token = NULL, $secretkey = NULL) {
         return false;
 }
 
+/*
 function getUser($db, $id){
     $stm = $db->prepare('SELECT id_studente, nome, cognome, id_classe, id_gruppo FROM studente WHERE id_studente = :id');
     $stm->bindValue(":id", $id);
     $stm->execute();
     return $stm->fetch(PDO::FETCH_ASSOC);
 }
+*/
