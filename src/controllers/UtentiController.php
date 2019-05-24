@@ -67,9 +67,57 @@ class UtentiController{
         $stm->bindValue(":id_atleta", $body['id_atleta']);
         $stm->execute();
 	    if($stm->rowCount() > 0){
-			$res->json(["message" => "OK", "code" => 200 ]);
-		}else{
-			$res->json(["message" => "Atleta non eliminato", "code" => 500 ]);
-		}
+            //Rimozione delle note
+            $stm = $app->db->prepare('UPDATE note SET deleted=true WHERE id_atleta=:id_atleta');
+            $stm->bindValue(":id_atleta", $body['id_atleta']);
+            $stm->execute();
+            //Rimozione del peso
+            $stm = $app->db->prepare('UPDATE peso SET deleted=true WHERE id_atleta=:id_atleta');
+            $stm->bindValue(":id_atleta", $body['id_atleta']);
+            $stm->execute();
+            //Rimozione della plicometria
+            $stm = $app->db->prepare('UPDATE plicometria SET deleted=true WHERE id_atleta=:id_atleta');
+            $stm->bindValue(":id_atleta", $body['id_atleta']);
+            $stm->execute();
+            //Rimozione delle prestazioni
+            $stm = $app->db->prepare('UPDATE prestazione SET deleted=true WHERE id_atleta=:id_atleta');
+            $stm->bindValue(":id_atleta", $body['id_atleta']);
+            $stm->execute();
+            //Rimozione delle programma
+            $stm = $app->db->prepare('SELECT id_programma FROM programma WHERE id_atleta=:id_atleta AND deleted=false');
+            $stm->bindValue(":id_atleta", $body['id_atleta']);
+            $stm->execute();
+            $dbres = $stm->fetchAll(PDO::FETCH_ASSOC);
+            foreach($dbres as $id){
+                $stm = $app->db->prepare('UPDATE programma SET deleted=true WHERE id_programma=:id_programma');
+                $stm->bindValue(":id_programma", $id['id_programma']);
+                $stm->execute();
+                if($stm->rowCount() > 0){
+                    //Rimozione della programmazione
+                    $stm = $app->db->prepare('UPDATE programmazione SET deleted=true WHERE id_programma=:id_programma');
+                    $stm->bindValue(":id_programma", $id['id_programma']);
+                    $stm->execute();
+                }
+            }
+            //Rmozione delle schede
+            $stm = $app->db->prepare('SELECT id_scheda FROM scheda WHERE id_atleta=:id_atleta AND deleted=false');
+            $stm->bindValue(":id_atleta", $body['id_atleta']);
+            $stm->execute();
+            $dbres = $stm->fetchAll(PDO::FETCH_ASSOC);
+            foreach($dbres as $id){
+                $stm = $app->db->prepare('UPDATE scheda SET deleted=true WHERE id_scheda=:id_scheda');
+                $stm->bindValue(":id_scheda", $id['id_scheda']);
+                $stm->execute();
+                if($stm->rowCount() > 0){
+                    //Rimozione della programmazione
+                    $stm = $app->db->prepare('UPDATE progressione SET deleted=true WHERE id_scheda=:id_scheda');
+                    $stm->bindValue(":id_scheda", $id['id_scheda']);
+                    $stm->execute();
+                }
+            }
+            $res->json(["message" => "OK", "code" => 200 ]);
+        }else{
+            $res->json(["message" => "Atleta non eliminato", "code" => 500 ]);
+        }
     }
 }

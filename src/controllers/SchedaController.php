@@ -69,9 +69,12 @@ class SchedaController{
         $stm->bindValue(":id_scheda", $body['id_scheda']);
         $stm->execute();
 	    if($stm->rowCount() > 0){
-			$res->json(["message" => "OK", "code" => 200 ]);
+            $stm = $app->db->prepare('UPDATE progressione SET deleted=true WHERE id_scheda=:id_scheda');
+            $stm->bindValue(":id_scheda", $body['id_scheda']);
+            $stm->execute();
+            $res->json(["message" => "OK", "code" => 200 ]);
 		}else{
 			$res->json(["message" => "Scheda non eliminata", "code" => 500 ]);
-		}
+        }
     }
 }

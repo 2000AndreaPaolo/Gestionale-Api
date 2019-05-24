@@ -66,6 +66,9 @@ class ProgrammaController{
         $stm->bindValue(":id_programma", $body['id_programma']);
         $stm->execute();
 	    if($stm->rowCount() > 0){
+            $stm = $app->db->prepare('UPDATE programmazione SET deleted=true WHERE id_programma=:id_programma');
+            $stm->bindValue(":id_programma", $body['id_programma']);
+            $stm->execute();
 			$res->json(["message" => "OK", "code" => 200 ]);
 		}else{
 			$res->json(["message" => "Programma non eliminato", "code" => 500 ]);
