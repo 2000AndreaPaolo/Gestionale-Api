@@ -116,3 +116,13 @@ CREATE TABLE prestazione(
     note                TEXT,
     deleted             BOOLEAN NOT NULL DEFAULT FALSE
 );
+
+CREATE VIEW atleti_eliminati AS SELECT * FROM atleta WHERE deleted = true;
+CREATE VIEW note_eliminate AS SELECT * FROM note WHERE deleted = true;
+CREATE VIEW peso_eliminato AS SELECT * FROM peso WHERE deleted = true;
+CREATE VIEW plicometrie_eliminate AS SELECT * FROM plicometria WHERE deleted = true;
+CREATE VIEW prestazioni_eliminate AS SELECT * FROM prestazione WHERE deleted = true;
+CREATE VIEW programmi_eliminati AS SELECT * FROM programma WHERE deleted = true;
+CREATE VIEW programmazioni_eliminati AS SELECT * FROM programmazione WHERE deleted = true;
+CREATE VIEW schede_eliminate AS SELECT * FROM scheda WHERE deleted = true;
+CREATE VIEW progressioni_eliminati AS SELECT * FROM progressione WHERE deleted = true;
