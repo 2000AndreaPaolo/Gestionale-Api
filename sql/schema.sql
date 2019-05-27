@@ -81,6 +81,8 @@ CREATE TABLE programmazione(
     id_programma        BIGINT UNSIGNED NOT NULL REFERENCES programma (id_programma),
     id_esercizio        BIGINT UNSIGNED NOT NULL REFERENCES esercizio (id_esercizio),
     giorno              INT(10) NOT NULL,
+    settimana           INT(10) NOT NULL,
+    data                DATE NOT NULL,
     serie               INT(10) NOT NULL,
     ripetizioni         INT(10) NOT NULL,
     carico              INT(10) NOT NULL,

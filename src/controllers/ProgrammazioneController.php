@@ -4,7 +4,7 @@ class ProgrammazioneController{
 
     // GET /admin/programmazione
     static function getProgrammazione($req, $res, $service, $app){
-        $stm = $app->db->prepare('SELECT programmazione.*, esercizio.descrizione FROM programmazione INNER JOIN esercizio ON programmazione.id_esercizio = esercizio.id_esercizio WHERE programmazione.deleted=false ORDER BY programmazione.giorno ASC, programmazione.id_programmazione ASC');
+        $stm = $app->db->prepare('SELECT programmazione.*, esercizio.descrizione FROM programmazione INNER JOIN esercizio ON programmazione.id_esercizio = esercizio.id_esercizio WHERE programmazione.deleted=false ORDER BY programmazione.giorno ASC, programmazione.id_programmazione ASC, programmazione.settimana ASC');
         $stm->execute();
         $dbres = $stm->fetchAll(PDO::FETCH_ASSOC);
 
@@ -13,6 +13,8 @@ class ProgrammazioneController{
                 'id_programmazione' => +$entry['id_programmazione'],
                 'id_programma' => +$entry['id_programma'],
                 'id_esercizio' => +$entry['id_esercizio'],
+                'data' => $entry['data'],
+                'settimana' => +$entry['settimana'],
                 'giorno' => +$entry['giorno'],
                 'serie' => +$entry['serie'],
                 'ripetizioni' => +$entry['ripetizioni'],
@@ -25,13 +27,16 @@ class ProgrammazioneController{
         $res->json($data);
     }
 
-    // POST /admin/programma
+    // POST /admin/programmazione
     static function addProgrammazione($req, $res, $service, $app){
         $body = $req->body();
         $body = json_decode($body, true);
-        $stm = $app->db->prepare('INSERT INTO programmazione ( id_programma, id_esercizio, giorno, serie, ripetizioni, carico, note ) VALUES (:id_programma,:id_esercizio,:giorno,:ripetizioni,:serie,:carico,:note)');
+        //print_r($body);exit;
+        $stm = $app->db->prepare('INSERT INTO programmazione ( id_programma, id_esercizio, data, settimana, giorno, serie, ripetizioni, carico, note ) VALUES (:id_programma,:id_esercizio,:data,:settimana,:giorno,:ripetizioni,:serie,:carico,:note)');
         $stm->bindValue(":id_programma", $body['id_programma']);
         $stm->bindValue(":id_esercizio", $body['id_esercizio']);
+        $stm->bindValue(":settimana", $body['settimana']);
+        $stm->bindValue(":data", $body['data']);
         $stm->bindValue(":giorno", $body['giorno']);
         $stm->bindValue(":serie", $body['serie']);
         $stm->bindValue(":ripetizioni", $body['ripetizioni']);
@@ -45,19 +50,22 @@ class ProgrammazioneController{
 		}
     }
 
-    // PUT /admin/programma
+    // PUT /admin/programmazione
     static function modifyProgrammazione($req, $res, $service, $app){
         $body = $req->body();
         $body = json_decode($body, true);
-        $stm = $app->db->prepare('UPDATE programmazione SET id_programma=:id_programma, id_esercizio=:id_esercizio, giorno=:giorno, serie=:serie, ripetizioni=:ripetizioni, carico=:carico, note=:note WHERE id_programmazione=:id_programmazione');
+        $stm = $app->db->prepare('UPDATE programmazione SET id_programma=:id_programma, id_esercizio=:id_esercizio, data=:data, settimana=:settimana, giorno=:giorno, serie=:serie, ripetizioni=:ripetizioni, carico=:carico, note=:note, data=:data WHERE id_programmazione=:id_programmazione');
         $stm->bindValue(":id_programmazione", $body['id_programmazione']);
         $stm->bindValue(":id_programma", $body['id_programma']);
         $stm->bindValue(":id_esercizio", $body['id_esercizio']);
+        $stm->bindValue(":settimana", $body['data']);
+        $stm->bindValue(":settimana", $body['settimana']);
         $stm->bindValue(":giorno", $body['giorno']);
         $stm->bindValue(":serie", $body['serie']);
         $stm->bindValue(":ripetizioni", $body['ripetizioni']);
         $stm->bindValue(":carico", $body['carico']);
         $stm->bindValue(":note", $body['note']);
+        $stm->bindValue(":data", $body['data']);
         $stm->execute();
 		if($stm->rowCount() > 0){
 			$res->json(["message" => "OK", "code" => 200 ]);
@@ -66,7 +74,7 @@ class ProgrammazioneController{
 		}
     }
 
-    // DELETE /admin/programma
+    // DELETE /admin/programmazione
     static function deleteProgrammazione($req, $res, $service, $app){
         $body = $req->body();
         $body = json_decode($body, true);
