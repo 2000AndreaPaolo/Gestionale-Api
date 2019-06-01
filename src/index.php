@@ -94,6 +94,10 @@ $klein->respond('POST', '/admin/note', ['NoteController', 'addNote']);
 $klein->respond('PUT', '/admin/note', ['NoteController', 'modifyNote']);
 $klein->respond('DELETE', '/admin/note', ['NoteController', 'deleteNote']);
 
+//Admin - cestino
+$klein->respond('GET', '/admin/deleted/atleti', ['CestinoController', 'getAtleti']);
+$klein->respond('POST', '/admin/deleted/atleti/restore', ['CestinoController', 'restoreAtleti']);
+
 /*
  * UTILS
  ****************/
