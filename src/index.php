@@ -98,6 +98,9 @@ $klein->respond('DELETE', '/admin/note', ['NoteController', 'deleteNote']);
 $klein->respond('GET', '/admin/deleted/atleti', ['CestinoController', 'getAtleti']);
 $klein->respond('POST', '/admin/deleted/atleti/restore', ['CestinoController', 'restoreAtleti']);
 
+//Admin - auth
+$klein->respond('POST', '/atleta/auth', ['AuthController', 'atletaLogin']);
+
 /*
  * UTILS
  ****************/
