@@ -37,6 +37,9 @@ $klein->respond('POST', '/admin/atleta', ['UtentiController', 'addAtleta']);
 $klein->respond('PUT', '/admin/atleta', ['UtentiController', 'modifyAtleta']);
 $klein->respond('DELETE', '/admin/atleta', ['UtentiController', 'deleteAtleta']);
 
+//Admin - specializzazione
+$klein->respond('GET', '/admin/specializzazione', ['UtentiController', 'getSpecializzazione']);
+
 //Admin - esercizio
 $klein->respond('GET', '/admin/esercizio', ['EsercizziController', 'getEsercizzi']);
 $klein->respond('POST', '/admin/esercizio', ['EsercizziController', 'addEsercizio']);

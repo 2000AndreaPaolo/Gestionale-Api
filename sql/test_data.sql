@@ -1,10 +1,16 @@
 USE gestionale;
 
+-- Insert rows into table 'specializzazione'
+INSERT INTO specializzazione ( descrizione ) VALUES 
+('Powerlifting'),
+('Bodybuilding'),
+('Funzionale');
+
 -- Insert rows into table 'atleta'
-INSERT INTO atleta ( nome, cognome, username, password, data_nascita ) VALUES 
-('alberto', 'rossi', 'alberto.rossi', 'demo', '1994-01-20'),
-('luciano', 'paolo', 'luciano.paolo', 'demo', '1994-01-20'),
-('valentina', 'paolo', 'valentina.paolo', 'demo', '1994-01-20');
+INSERT INTO atleta ( nome, cognome, username, password, data_nascita, id_specializzazione ) VALUES 
+('alberto', 'rossi', 'alberto.rossi', 'demo', '1994-01-20', 1),
+('luciano', 'paolo', 'luciano.paolo', 'demo', '1994-01-20', 2),
+('valentina', 'paolo', 'valentina.paolo', 'demo', '1994-01-20', 3);
 
 -- Insert rows into table 'coach'
 INSERT INTO coach ( nome, cognome, username, password ) VALUES 

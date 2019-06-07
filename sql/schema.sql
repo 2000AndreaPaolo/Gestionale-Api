@@ -3,13 +3,20 @@ CREATE SCHEMA gestionale;
 USE gestionale;
 
 CREATE TABLE atleta(
-    id_atleta       SERIAL PRIMARY KEY,
-    nome            VARCHAR(60) NOT NULL,
-    cognome         VARCHAR(60) NOT NULL,
-    username        VARCHAR(60) NOT NULL UNIQUE,
-    password        VARCHAR(60) NOT NULL,
-    data_nascita    DATE NOT NULL,
-    deleted         BOOLEAN NOT NULL DEFAULT FALSE
+    id_atleta               SERIAL PRIMARY KEY,
+    nome                    VARCHAR(60) NOT NULL,
+    cognome                 VARCHAR(60) NOT NULL,
+    username                VARCHAR(60) NOT NULL UNIQUE,
+    password                VARCHAR(60) NOT NULL,
+    data_nascita            DATE NOT NULL,
+    id_specializzazione     BIGINT UNSIGNED NOT NULL REFERENCES specializzazione (id_specializzazione),
+    deleted                 BOOLEAN NOT NULL DEFAULT FALSE
+);
+
+CREATE TABLE specializzazione(
+    id_specializzazione     SERIAL PRIMARY KEY,
+    descrizione             VARCHAR(60) NOT NULL,
+    deleted                 BOOLEAN NOT NULL DEFAULT FALSE
 );
 
 CREATE TABLE coach(

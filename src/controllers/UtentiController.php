@@ -4,7 +4,7 @@ class UtentiController{
 
     // GET /admin/atleta
     static function getAtleti($req, $res, $service, $app){
-        $stm = $app->db->prepare('SELECT id_atleta, nome, cognome, data_nascita,username FROM atleta WHERE deleted=false');
+        $stm = $app->db->prepare('SELECT atleta.id_atleta, atleta.nome, atleta.cognome, atleta.data_nascita, atleta.username, atleta.id_specializzazione, specializzazione.descrizione FROM atleta INNER JOIN specializzazione ON specializzazione.id_specializzazione=atleta.id_specializzazione WHERE atleta.deleted=false');
         $stm->execute();
         $dbres = $stm->fetchAll(PDO::FETCH_ASSOC);
 
@@ -14,7 +14,9 @@ class UtentiController{
                 'nome' => $entry['nome'],
                 'cognome' => $entry['cognome'],
                 'data_nascita' => $entry['data_nascita'],
-                'username' => $entry['username']
+                'username' => $entry['username'],
+                'descrizione' => $entry['descrizione'],
+                'id_specializzazione' => +$entry['id_specializzazione']
             ];
         }, $dbres);
 
@@ -27,12 +29,13 @@ class UtentiController{
         $body = json_decode($body, true);
         $username = $body['nome'].'.'.$body['cognome'];
         $password = $body['nome'].'.'.$body['cognome'];
-        $stm = $app->db->prepare('INSERT INTO atleta ( nome, cognome, username, password, data_nascita ) VALUES (:nome, :cognome, :username, :password, :data_nascita)');
+        $stm = $app->db->prepare('INSERT INTO atleta ( nome, cognome, username, password, data_nascita, id_specializzazione ) VALUES (:nome, :cognome, :username, :password, :data_nascita, :id_specializzazione)');
         $stm->bindValue(":nome", $body['nome']);
         $stm->bindValue(":cognome", $body['cognome']);
         $stm->bindValue(":username", $username);
         $stm->bindValue(":password", $password);
         $stm->bindValue(":data_nascita", $body['data_nascita']);
+        $stm->bindValue(":id_specializzazione", $body['id_specializzazione']);
 	    if($stm->execute()){
 			$res->json(["message" => "OK", "code" => 200 ]);
 		}else{
@@ -45,12 +48,13 @@ class UtentiController{
         $body = $req->body();
         $body = json_decode($body, true);
         $username = $body['nome'].'.'.$body['cognome'];
-        $stm = $app->db->prepare('UPDATE atleta SET nome=:nome, cognome=:cognome, username=:username, data_nascita=:data_nascita WHERE id_atleta=:id_atleta');
+        $stm = $app->db->prepare('UPDATE atleta SET nome=:nome, cognome=:cognome, username=:username, data_nascita=:data_nascita, id_specializzazione=:id_specializzazione WHERE id_atleta=:id_atleta');
         $stm->bindValue(":nome", $body['nome']);
         $stm->bindValue(":cognome", $body['cognome']);
         $stm->bindValue(":username", $username);
         $stm->bindValue(":data_nascita", $body['data_nascita']);
         $stm->bindValue(":id_atleta", $body['id_atleta']);
+        $stm->bindValue(":id_specializzazione", $body['id_specializzazione']);
         $stm->execute();
 		if($stm->rowCount() > 0){
 			$res->json(["message" => "OK", "code" => 200 ]);
@@ -119,5 +123,21 @@ class UtentiController{
         }else{
             $res->json(["message" => "Atleta non eliminato", "code" => 500 ]);
         }
+    }
+
+    // GET /admin/specializzazione
+    static function getSpecializzazione($req, $res, $service, $app){
+        $stm = $app->db->prepare('SELECT id_specializzazione, descrizione FROM specializzazione WHERE deleted=false');
+        $stm->execute();
+        $dbres = $stm->fetchAll(PDO::FETCH_ASSOC);
+
+        $data = array_map(function($entry){
+            return [
+                'id_specializzazione' => +$entry['id_specializzazione'],
+                'descrizione' => $entry['descrizione']
+            ];
+        }, $dbres);
+
+        $res->json($data);
     }
 }

@@ -29,7 +29,7 @@ class AuthController {
     static function atletaLogin($req, $res, $service, $app){
         $parameters = $req->body();
         $parameters = json_decode($parameters, true);
-        $stm = $app->db->prepare('SELECT id_atleta, nome, cognome, username, data_nascita FROM atleta WHERE username = :username and password = :password and deleted=false');
+        $stm = $app->db->prepare('SELECT id_atleta, nome, cognome, username, data_nascita, id_specializzazione FROM atleta WHERE username = :username and password = :password and deleted=false');
         $stm->bindValue(":username", $parameters['username']);
         $stm->bindValue(":password", $parameters['password']);
         $stm->execute();
@@ -41,6 +41,7 @@ class AuthController {
                     'nome' => $entry['nome'],
                     'cognome' => $entry['cognome'],
                     'username' => $entry['username'],
+                    'id_specializzazione' => +$entry['id_specializzazione'],
                     'data_nascita' => $data['data_nascita'],
                     'token' => getJwt(['id_atleta' => +$entry['id_atleta']])
                 ];
