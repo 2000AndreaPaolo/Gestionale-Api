@@ -72,6 +72,7 @@ $klein->respond('GET', '/admin/programmazione', ['ProgrammazioneController', 'ge
 $klein->respond('POST', '/admin/programmazione', ['ProgrammazioneController', 'addProgrammazione']);
 $klein->respond('PUT', '/admin/programmazione', ['ProgrammazioneController', 'modifyProgrammazione']);
 $klein->respond('DELETE', '/admin/programmazione', ['ProgrammazioneController', 'deleteProgrammazione']);
+$klein->respond('GET', '/admin/programmazione/giorno', ['ProgrammazioneController', 'getProgrammazioneGiorno']);
 
 //Admin - programma
 $klein->respond('GET', '/admin/programma', ['ProgrammaController', 'getProgramma']);

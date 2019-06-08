@@ -87,4 +87,27 @@ class ProgrammazioneController{
 			$res->json(["message" => "Programmazione non eliminats", "code" => 500 ]);
 		}
     }
+
+    // GET /admin/programmazione
+    static function getProgrammazioneGiorno($req, $res, $service, $app){
+        $stm = $app->db->prepare('SELECT programmazione.*, esercizio.descrizione FROM programmazione INNER JOIN esercizio ON programmazione.id_esercizio = esercizio.id_esercizio WHERE programmazione.deleted=false AND programmazione.data=CURDATE() ORDER BY programmazione.giorno ASC, programmazione.id_programmazione ASC, programmazione.settimana ASC');
+        $stm->execute();
+        $dbres = $stm->fetchAll(PDO::FETCH_ASSOC);
+
+        $data = array_map(function($entry){
+            return [
+                'id_programmazione' => +$entry['id_programmazione'],
+                'id_programma' => +$entry['id_programma'],
+                'id_esercizio' => +$entry['id_esercizio'],
+                'data' => date("m-d-Y", strtotime($entry['data'])),
+                'serie' => +$entry['serie'],
+                'ripetizioni' => +$entry['ripetizioni'],
+                'carico' => +$entry['carico'],
+                'note' => $entry['note'],
+                'nome_esercizio' => $entry['descrizione']
+            ];
+        }, $dbres);
+
+        $res->json($data);
+    }
 }
