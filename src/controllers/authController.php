@@ -42,7 +42,7 @@ class AuthController {
                     'cognome' => $entry['cognome'],
                     'username' => $entry['username'],
                     'id_specializzazione' => +$entry['id_specializzazione'],
-                    'data_nascita' => $data['data_nascita'],
+                    'data_nascita' => date("d-m-Y", strtotime($data['data_nascita'])),
                     'token' => getJwt(['id_atleta' => +$entry['id_atleta']])
                 ];
             }, $var);

@@ -15,12 +15,12 @@ class PlicometriaController{
                 'addome' => +$entry['addome'],
                 'gamba' => +$entry['gamba'],
                 'percentuale' => +$entry['percentuale'],
-                'data_rilevazione' => $entry['data_rilevazione'],
+                'data_rilevazione' => date("d-m-Y", strtotime($entry['data_rilevazione'])),
                 'note' => $entry['note'],
                 'id_atleta' => +$entry['id_atleta'],
                 'nome_atleta' => $entry['nome'],
                 'cognome_atleta' => $entry['cognome'],
-                'data_nascita' => $entry['data_nascita'],
+                'data_nascita' => date("d-m-Y", strtotime($entry['data_nascita'])),
             ];
         }, $dbres);
 

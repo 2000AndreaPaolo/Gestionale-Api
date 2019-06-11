@@ -13,7 +13,7 @@ class UtentiController{
                 'id_atleta' => +$entry['id_atleta'],
                 'nome' => $entry['nome'],
                 'cognome' => $entry['cognome'],
-                'data_nascita' => $entry['data_nascita'],
+                'data_nascita' => date("d-m-Y", strtotime($entry['data_nascita'])),
                 'username' => $entry['username'],
                 'descrizione' => $entry['descrizione'],
                 'id_specializzazione' => +$entry['id_specializzazione']

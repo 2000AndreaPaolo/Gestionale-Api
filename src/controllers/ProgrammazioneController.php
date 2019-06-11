@@ -101,7 +101,7 @@ class ProgrammazioneController{
             return [
                 'id_programmazione' => +$entry['id_programmazione'],
                 'id_esercizio' => +$entry['id_esercizio'],
-                'data' => date("m-d-Y", strtotime($entry['data'])),
+                'data' => date("d-m-Y", strtotime($entry['data'])),
                 'serie' => +$entry['serie'],
                 'ripetizioni' => +$entry['ripetizioni'],
                 'carico' => +$entry['carico'],

@@ -13,7 +13,7 @@ class PesoController{
                 'id_peso' => +$entry['id_peso'],
                 'id_atleta' => +$entry['id_atleta'],
                 'peso' => +$entry['peso'],
-                'data' => $entry['data'],
+                'data' => date("d-m-Y", strtotime($entry['data'])),
                 'note' => $entry['note'],
                 'nome_atleta' => $entry['nome'],
                 'cognome_atleta' => $entry['cognome']
@@ -82,7 +82,7 @@ class PesoController{
             return [
                 'id_peso' => +$entry['id_peso'],
                 'peso' => +$entry['peso'],
-                'data' => $entry['data'],
+                'data' => date("d-m-Y", strtotime($entry['data'])),
                 'note' => $entry['note']
             ];
         }, $dbres);

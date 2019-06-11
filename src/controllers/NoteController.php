@@ -78,7 +78,7 @@ class NoteController{
         $data = array_map(function($entry){
             return [
                 'id_note' => +$entry['id_note'],
-                'data' => $entry['data'],
+                'data' => date("d-m-Y", strtotime($entry['data'])),
                 'note' => $entry['note']
             ];
         }, $dbres);

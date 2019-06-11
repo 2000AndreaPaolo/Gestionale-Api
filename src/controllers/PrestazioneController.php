@@ -14,7 +14,7 @@ class PrestazioneController{
                 'id_atleta' => +$entry['id_atleta'],
                 'id_esercizio' => +$entry['id_esercizio'],
                 'peso' => +$entry['peso'],
-                'data' => $entry['data'],
+                'data' => date("d-m-Y", strtotime($entry['data'])),
                 'note' => $entry['note'],
                 'nome_atleta' => $entry['nome'],
                 'cognome_atleta' => $entry['cognome'],
