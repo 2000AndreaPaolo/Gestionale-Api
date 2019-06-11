@@ -74,4 +74,25 @@ class ProgrammaController{
 			$res->json(["message" => "Programma non eliminato", "code" => 500 ]);
 		}
     }
+
+    // POST /atelta/programma
+    static function getProgrammaAtleta($req, $res, $service, $app){
+        $body = $req->body();
+        $body = json_decode($body, true);
+        $stm = $app->db->prepare('SELECT programma.* FROM programma INNER JOIN atleta ON programma.id_atleta=atleta.id_atleta WHERE programma.deleted=false AND programma.id_atleta=:id_atleta ORDER BY programma.data_inizio DESC');
+        $stm->bindValue(":id_atleta", $body);
+        $stm->execute();
+        $dbres = $stm->fetchAll(PDO::FETCH_ASSOC);
+
+        $data = array_map(function($entry){
+            return [
+                'id_programma' => +$entry['id_programma'],
+                'id_atleta' => +$entry['id_atleta'],
+                'data_inizio' => $entry['data_inizio'],
+                'data_fine' => $entry['data_fine'],
+                'note' => $entry['note']
+            ];
+        }, $dbres);
+        $res->json($data);
+    }
 }

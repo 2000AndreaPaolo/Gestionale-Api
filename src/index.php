@@ -72,7 +72,6 @@ $klein->respond('GET', '/admin/programmazione', ['ProgrammazioneController', 'ge
 $klein->respond('POST', '/admin/programmazione', ['ProgrammazioneController', 'addProgrammazione']);
 $klein->respond('PUT', '/admin/programmazione', ['ProgrammazioneController', 'modifyProgrammazione']);
 $klein->respond('DELETE', '/admin/programmazione', ['ProgrammazioneController', 'deleteProgrammazione']);
-$klein->respond('GET', '/admin/programmazione/giorno', ['ProgrammazioneController', 'getProgrammazioneGiorno']);
 
 //Admin - programma
 $klein->respond('GET', '/admin/programma', ['ProgrammaController', 'getProgramma']);
@@ -102,8 +101,26 @@ $klein->respond('DELETE', '/admin/note', ['NoteController', 'deleteNote']);
 $klein->respond('GET', '/admin/deleted/atleti', ['CestinoController', 'getAtleti']);
 $klein->respond('POST', '/admin/deleted/atleti/restore', ['CestinoController', 'restoreAtleti']);
 
-//Admin - auth
+//Atleta - auth
 $klein->respond('POST', '/atleta/auth', ['AuthController', 'atletaLogin']);
+
+//Atleta - programma
+$klein->respond('POST', '/atleta/programma', ['ProgrammaController', 'getProgrammaAtleta']);
+
+//Atleta - programmazione
+$klein->respond('POST', '/atleta/programmazione/giorno', ['ProgrammazioneController', 'getProgrammazioneGiorno']);
+
+//Atleta - scheda
+$klein->respond('POST', '/atleta/scheda', ['SchedaController', 'getSchedaAtleta']);
+
+//Atleta - progressione
+$klein->respond('POST', '/atleta/progressione', ['ProgressioneController', 'getProgressioneAtleta']);
+
+//Atleta - note
+$klein->respond('POST', '/atleta/note', ['NoteController', 'getNoteAtleta']);
+
+//Atleta - peso
+$klein->respond('POST', '/atleta/peso', ['PesoController', 'getPesoAtleta']);
 
 /*
  * UTILS

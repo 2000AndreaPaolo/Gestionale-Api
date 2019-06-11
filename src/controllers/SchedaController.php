@@ -77,4 +77,26 @@ class SchedaController{
 			$res->json(["message" => "Scheda non eliminata", "code" => 500 ]);
         }
     }
+
+    // POST /atelta/scheda
+    static function getSchedaAtleta($req, $res, $service, $app){
+        $body = $req->body();
+        $body = json_decode($body, true);
+        $stm = $app->db->prepare('SELECT scheda.id_scheda, scheda.nome, scheda.data_inizio, scheda.data_fine, scheda.durata FROM scheda INNER JOIN atleta ON scheda.id_atleta = atleta.id_atleta WHERE scheda.deleted = false AND scheda.id_atleta=:id_atleta');
+        $stm->bindValue(":id_atleta", $body);
+        $stm->execute();
+        $dbres = $stm->fetchAll(PDO::FETCH_ASSOC);
+
+        $data = array_map(function($entry){
+            return [
+                'id_scheda' => +$entry['id_scheda'],
+                'nome' => $entry['nome'],
+                'data_inizio' => $entry['data_inizio'],
+                'data_fine' => $entry['data_fine'],
+                'durata' => $entry['durata'],
+            ];
+        }, $dbres);
+
+        $res->json($data);
+    }
 }

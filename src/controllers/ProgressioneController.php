@@ -75,4 +75,29 @@ class ProgressioneController{
 			$res->json(["message" => "Progressione non eliminata", "code" => 500 ]);
 		}
     }
+
+    // POST /atleta/programmazione
+    static function getProgressioneAtleta($req, $res, $service, $app){
+        $body = $req->body();
+        $body = json_decode($body, true);
+        $stm = $app->db->prepare('SELECT progressione.id_scheda, progressione.id_progressione, progressione.giorno, progressione.serie, progressione.ripetizioni, progressione.note, esercizio.id_esercizio, esercizio.descrizione FROM progressione INNER JOIN esercizio ON progressione.id_esercizio = esercizio.id_esercizio INNER JOIN scheda ON scheda.id_scheda=progressione.id_scheda WHERE progressione.deleted = false AND scheda.id_scheda=:id_scheda ORDER BY progressione.giorno ASC, progressione.id_progressione ASC');
+        $stm->bindValue(":id_scheda", $body);
+        $stm->execute();
+        $dbres = $stm->fetchAll(PDO::FETCH_ASSOC);
+
+        $data = array_map(function($entry){
+            return [
+                'id_scheda' => +$entry['id_scheda'],
+                'id_progressione' => +$entry['id_progressione'],
+                'giorno' => +$entry['giorno'],
+                'serie' => $entry['serie'],
+                'ripetizioni' => $entry['ripetizioni'],
+                'note' => $entry['note'],
+                'id_esercizio' => +$entry['id_esercizio'],
+                'nome_esercizio' => $entry['descrizione']
+            ];
+        }, $dbres);
+
+        $res->json($data);
+    }
 }

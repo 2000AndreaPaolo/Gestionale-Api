@@ -65,4 +65,24 @@ class NoteController{
 			$res->json(["message" => "Nota non eliminata", "code" => 500 ]);
 		}
     }
+
+    // POST /atelta/programma
+    static function getNoteAtleta($req, $res, $service, $app){
+        $body = $req->body();
+        $body = json_decode($body, true);
+        $stm = $app->db->prepare('SELECT note.* FROM note WHERE note.deleted=false AND note.id_atleta=:id_atleta ORDER BY note.data DESC');
+        $stm->bindValue(":id_atleta", $body);
+        $stm->execute();
+        $dbres = $stm->fetchAll(PDO::FETCH_ASSOC);
+
+        $data = array_map(function($entry){
+            return [
+                'id_note' => +$entry['id_note'],
+                'data' => $entry['data'],
+                'note' => $entry['note']
+            ];
+        }, $dbres);
+
+        $res->json($data);
+    }
 }

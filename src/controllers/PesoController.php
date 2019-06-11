@@ -68,4 +68,25 @@ class PesoController{
 			$res->json(["message" => "Peso non eliminato", "code" => 500 ]);
 		}
     }
+
+    // POST /atelta/peso
+    static function getPesoAtleta($req, $res, $service, $app){
+        $body = $req->body();
+        $body = json_decode($body, true);
+        $stm = $app->db->prepare('SELECT peso.* FROM peso WHERE peso.deleted=false AND peso.id_atleta=:id_atleta ORDER BY peso.data DESC');
+        $stm->bindValue(":id_atleta", $body);
+        $stm->execute();
+        $dbres = $stm->fetchAll(PDO::FETCH_ASSOC);
+
+        $data = array_map(function($entry){
+            return [
+                'id_peso' => +$entry['id_peso'],
+                'peso' => +$entry['peso'],
+                'data' => $entry['data'],
+                'note' => $entry['note']
+            ];
+        }, $dbres);
+
+        $res->json($data);
+    }
 }
