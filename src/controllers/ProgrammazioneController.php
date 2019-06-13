@@ -92,8 +92,8 @@ class ProgrammazioneController{
     static function getProgrammazioneGiorno($req, $res, $service, $app){
         $body = $req->body();
         $body = json_decode($body, true);
-        $stm = $app->db->prepare('SELECT programmazione.*, esercizio.descrizione FROM programmazione INNER JOIN esercizio ON programmazione.id_esercizio = esercizio.id_esercizio INNER JOIN programma ON programma.id_programma=programmazione.id_programma WHERE programmazione.deleted=false AND programmazione.data=CURDATE() AND programma.id_atleta=1 ORDER BY programmazione.giorno ASC, programmazione.id_programmazione ASC, programmazione.settimana ASC');
-        $stm->bindValue(":id_atleta", $body);
+        $stm = $app->db->prepare('SELECT programmazione.*, esercizio.descrizione FROM programmazione INNER JOIN esercizio ON programmazione.id_esercizio = esercizio.id_esercizio INNER JOIN programma ON programma.id_programma=programmazione.id_programma WHERE programmazione.deleted=false AND programmazione.data=CURDATE() AND programma.id_programma=:id_programma ORDER BY programmazione.giorno ASC, programmazione.id_programmazione ASC, programmazione.settimana ASC');
+        $stm->bindValue(":id_programma", $body);
         $stm->execute();
         $dbres = $stm->fetchAll(PDO::FETCH_ASSOC);
 
