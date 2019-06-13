@@ -88,8 +88,10 @@ class ProgrammaController{
             return [
                 'id_programma' => +$entry['id_programma'],
                 'id_atleta' => +$entry['id_atleta'],
-                'data_inizio' => date("d-m-Y", strtotime($entry['data_inizio'])),
-                'data_fine' => date("d-m-Y", strtotime($entry['data_fine'])),
+                //'data_inizio' => date("d-m-Y", strtotime($entry['data_inizio'])),
+                'data_inizio' => $entry['data_inizio'],
+                //'data_fine' => date("d-m-Y", strtotime($entry['data_fine'])),
+                'data_fine' => $entry['data_fine'],
                 'note' => $entry['note']
             ];
         }, $dbres);

@@ -91,8 +91,10 @@ class SchedaController{
             return [
                 'id_scheda' => +$entry['id_scheda'],
                 'nome' => $entry['nome'],
-                'data_inizio' => date("d-m-Y", strtotime($entry['data_inizio'])),
-                'data_fine' => date("d-m-Y", strtotime($entry['data_fine'])),
+                //'data_inizio' => date("d-m-Y", strtotime($entry['data_inizio'])),
+                'data_inizio' => $entry['data_inizio'],
+                //'data_fine' => date("d-m-Y", strtotime($entry['data_fine'])),
+                'data_fine' => $entry['data_fine'],
                 'durata' => $entry['durata'],
             ];
         }, $dbres);
