@@ -89,16 +89,17 @@ class PrestazioneController{
         }, $dbres);
 
         foreach($data as $esercizio){
-            $stm = $app->db->prepare('SELECT MAX(peso) as peso, id_esercizio  FROM prestazione WHERE deleted=false AND id_esercizio=:id_esercizio AND id_atleta=:id_atleta');
+            $stm = $app->db->prepare('SELECT MAX(prestazione.peso) as peso, prestazione.id_esercizio, descrizione  FROM prestazione INNER JOIN esercizio ON prestazione.id_esercizio=esercizio.id_esercizio WHERE prestazione.deleted=false AND prestazione.id_esercizio=:id_esercizio AND prestazione.id_atleta=:id_atleta');
             $stm->bindValue(":id_esercizio", $esercizio['id_esercizio']);
             $stm->bindValue(":id_atleta", $body);
             $stm->execute();
-            if($stm->rowCount() > 0){
-                $dbres = $stm->fetchAll(PDO::FETCH_ASSOC);
+            $dbres = $stm->fetchAll(PDO::FETCH_ASSOC);
+            if($dbres[0]['peso'] != null){
                 $dbres = array_map(function($entry){
                     return [
                         'id_esercizio' => +$entry['id_esercizio'],
-                        'peso' => +$entry['peso']
+                        'peso' => +$entry['peso'],
+                        'descrizione' => $entry['descrizione']
                     ];
                 }, $dbres);
                 array_push($appoggio, $dbres);
