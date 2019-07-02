@@ -72,4 +72,38 @@ class PrestazioneController{
 			$res->json(["message" => "Prestazione non eliminata", "code" => 500 ]);
 		}
     }
+
+    // POST /admin/prestazione/massimale
+    static function getMassimale($req, $res, $service, $app){
+        $body = $req->body();
+        $body = json_decode($body, true);
+        $appoggio = Array();
+        $stm = $app->db->prepare('SELECT id_esercizio, descrizione FROM esercizio WHERE esercizio.deleted=false');
+        $stm->execute();
+        $dbres = $stm->fetchAll(PDO::FETCH_ASSOC);
+        $data = array_map(function($entry){
+            return [
+                'id_esercizio' => +$entry['id_esercizio'],
+                'descrizione' => $entry['descrizione']
+            ];
+        }, $dbres);
+
+        foreach($data as $esercizio){
+            $stm = $app->db->prepare('SELECT MAX(peso) as peso, id_esercizio  FROM prestazione WHERE deleted=false AND id_esercizio=:id_esercizio AND id_atleta=:id_atleta');
+            $stm->bindValue(":id_esercizio", $esercizio['id_esercizio']);
+            $stm->bindValue(":id_atleta", $body);
+            $stm->execute();
+            if($stm->rowCount() > 0){
+                $dbres = $stm->fetchAll(PDO::FETCH_ASSOC);
+                $dbres = array_map(function($entry){
+                    return [
+                        'id_esercizio' => +$entry['id_esercizio'],
+                        'peso' => +$entry['peso']
+                    ];
+                }, $dbres);
+                array_push($appoggio, $dbres);
+            }
+        }
+        $res->json($appoggio);
+    }
 }
