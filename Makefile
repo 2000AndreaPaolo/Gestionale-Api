@@ -43,3 +43,9 @@ db:
 .PHONY: testdata
 testdata: db
 	docker exec -it gestionale-mdb sh -c 'mysql -ugestionale -pgestionale < /sql/test_data.sql'
+
+.PHONY: proxysetup
+proxysetup:
+	touch acme.json
+	chmod 600 acme.json
+	docker network create proxy

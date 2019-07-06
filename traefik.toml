@@ -1,0 +1,30 @@
+debug = true
+
+logLevel = "DEBUG"
+defaultEntryPoints = ["http"]
+
+[entryPoints]
+  [entryPoints.http]
+  address = ":80"
+# Enable for HTTPS only
+#    [entryPoints.http.redirect]
+#    entryPoint = "https"
+  [entryPoints.https]
+  address = ":443"
+  [entryPoints.https.tls]
+
+[retry]
+
+[docker]
+endpoint = "unix:///var/run/docker.sock"
+domain = "tridentescarface.com"
+watch = true
+exposedByDefault = false
+
+#[acme]
+#email = "2000.andrea.paolo@gmail.com"
+#storage = "acme.json"
+#entryPoint = "https"
+#onHostRule = true
+#[acme.httpChallenge]
+#entryPoint = "http"

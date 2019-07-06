@@ -11,5 +11,12 @@ services:
       PMA_PASSWORD: gestionale
     links:
       - mariadb:database
-    ports:
-      - 8000:80
+    expose:
+      - 80
+    labels:
+      - "traefik.port=80"
+      - 'traefik.backend=phpmyadmin'
+      - 'traefik.enable=true'
+      - "traefik.frontend.rule=Host:phpmyadmin.tridentescarface.com"
+    networks:
+      - proxy
