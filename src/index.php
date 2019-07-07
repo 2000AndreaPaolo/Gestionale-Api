@@ -30,6 +30,7 @@ $klein->respond('GET', '/', ['IndexController', 'get']);
 
 //Admin - auth
 $klein->respond('POST', '/admin/auth', ['AuthController', 'adminLogin']);
+$klein->respond('POST', '/admin/atleta/resetpassword', ['AuthController', 'resetPasswordClienti']);
 
 //Admin - atleta
 $klein->respond('GET', '/admin/atleta', ['UtentiController', 'getAtleti']);
@@ -104,6 +105,7 @@ $klein->respond('POST', '/admin/deleted/atleti/restore', ['CestinoController', '
 
 //Atleta - auth
 $klein->respond('POST', '/atleta/auth', ['AuthController', 'atletaLogin']);
+$klein->respond('POST', '/atleta/password', ['AuthController', 'changePasswordClienti']);
 
 //Atleta - programma
 $klein->respond('POST', '/atleta/programma', ['ProgrammaController', 'getProgrammaAtleta']);
