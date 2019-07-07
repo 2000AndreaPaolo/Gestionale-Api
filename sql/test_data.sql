@@ -8,13 +8,13 @@ INSERT INTO specializzazione ( descrizione ) VALUES
 
 -- Insert rows into table 'atleta'
 INSERT INTO atleta ( nome, cognome, username, password, data_nascita, id_specializzazione ) VALUES 
-('alberto', 'rossi', 'alberto.rossi', 'demo', '1994-01-20', 1),
-('luciano', 'paolo', 'luciano.paolo', 'demo', '1994-01-20', 2),
-('valentina', 'paolo', 'valentina.paolo', 'demo', '1994-01-20', 3);
+('alberto', 'rossi', 'alberto.rossi', 'fe01ce2a7fbac8fafaed7c982a04e229', '1994-01-20', 1),
+('luciano', 'paolo', 'luciano.paolo', 'fe01ce2a7fbac8fafaed7c982a04e229', '1994-01-20', 2),
+('valentina', 'paolo', 'valentina.paolo', 'fe01ce2a7fbac8fafaed7c982a04e229', '1994-01-20', 3);
 
 -- Insert rows into table 'coach'
 INSERT INTO coach ( nome, cognome, username, password ) VALUES 
-('andrea', 'paolo', 'andrea.paolo', 'demo');
+('andrea', 'paolo', 'andrea.paolo', 'fe01ce2a7fbac8fafaed7c982a04e229');
 
 -- Insert rows into table 'esercizio'
 INSERT INTO esercizio ( descrizione, id_gruppoMuscolare ) VALUES 

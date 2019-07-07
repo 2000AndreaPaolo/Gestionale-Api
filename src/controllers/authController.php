@@ -8,7 +8,7 @@ class AuthController {
         $parameters = json_decode($parameters, true);
         $stm = $app->db->prepare('SELECT * FROM coach WHERE username=:username AND password=:password');
         $stm->bindValue(":username", $parameters['username']);
-        $stm->bindValue(":password", $parameters['password']);
+        $stm->bindValue(":password", md5($parameters['password']));
         $stm->execute();
         if($stm->rowCount() > 0){
             $var = $stm->fetchAll(PDO::FETCH_ASSOC);
@@ -31,7 +31,7 @@ class AuthController {
         $parameters = json_decode($parameters, true);
         $stm = $app->db->prepare('SELECT id_atleta, nome, cognome, username, data_nascita, id_specializzazione FROM atleta WHERE username = :username and password = :password and deleted=false');
         $stm->bindValue(":username", $parameters['username']);
-        $stm->bindValue(":password", $parameters['password']);
+        $stm->bindValue(":password", md5($parameters['password']));
         $stm->execute();
         if($stm->rowCount() > 0){
             $var = $stm->fetchAll(PDO::FETCH_ASSOC);

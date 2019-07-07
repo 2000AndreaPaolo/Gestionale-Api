@@ -33,7 +33,7 @@ class UtentiController{
         $stm->bindValue(":nome", $body['nome']);
         $stm->bindValue(":cognome", $body['cognome']);
         $stm->bindValue(":username", $username);
-        $stm->bindValue(":password", $password);
+        $stm->bindValue(":password", md5($password));
         $stm->bindValue(":data_nascita", $body['data_nascita']);
         $stm->bindValue(":id_specializzazione", $body['id_specializzazione']);
 	    if($stm->execute()){
