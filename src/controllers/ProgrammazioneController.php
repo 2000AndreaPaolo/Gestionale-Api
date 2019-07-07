@@ -31,8 +31,7 @@ class ProgrammazioneController{
     static function addProgrammazione($req, $res, $service, $app){
         $body = $req->body();
         $body = json_decode($body, true);
-        //print_r($body);exit;
-        $stm = $app->db->prepare('INSERT INTO programmazione ( id_programma, id_esercizio, data, settimana, giorno, serie, ripetizioni, carico, note ) VALUES (:id_programma,:id_esercizio,:data,:settimana,:giorno,:ripetizioni,:serie,:carico,:note)');
+        $stm = $app->db->prepare('INSERT INTO programmazione ( id_programma, id_esercizio, data, settimana, giorno, serie, ripetizioni, carico, note ) VALUES (:id_programma,:id_esercizio,:data,:settimana,:giorno,:serie,:ripetizioni,:carico,:note)');
         $stm->bindValue(":id_programma", $body['id_programma']);
         $stm->bindValue(":id_esercizio", $body['id_esercizio']);
         $stm->bindValue(":settimana", $body['settimana']);
