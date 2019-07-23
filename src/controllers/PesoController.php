@@ -4,7 +4,10 @@ class PesoController{
 
     // GET /admin/peso
     static function getPeso($req, $res, $service, $app){
-        $stm = $app->db->prepare('SELECT peso.*, atleta.nome, atleta.cognome FROM peso INNER JOIN atleta ON atleta.id_atleta=peso.id_atleta WHERE peso.deleted=false ORDER BY peso.data DESC');
+        $body = $req->body();
+        $body = json_decode($body, true);
+        $stm = $app->db->prepare('SELECT peso.*, atleta.nome, atleta.cognome, atleta.id_coach FROM peso INNER JOIN atleta ON atleta.id_atleta=peso.id_atleta WHERE peso.deleted=false AND atleta.id_coach=:id_coach ORDER BY peso.data DESC');
+        $stm->bindValue(":id_coach", $body);
         $stm->execute();
         $dbres = $stm->fetchAll(PDO::FETCH_ASSOC);
 

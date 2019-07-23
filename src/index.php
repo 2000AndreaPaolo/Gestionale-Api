@@ -81,7 +81,7 @@ $klein->respond('PUT', '/admin/programma', ['ProgrammaController', 'modifyProgra
 $klein->respond('DELETE', '/admin/programma', ['ProgrammaController', 'deleteProgramma']);
 
 //Admin - peso
-$klein->respond('GET', '/admin/peso', ['PesoController', 'getPeso']);
+$klein->respond('POST', '/admin/get/peso', ['PesoController', 'getPeso']);
 $klein->respond('POST', '/admin/peso', ['PesoController', 'addPeso']);
 $klein->respond('PUT', '/admin/peso', ['PesoController', 'modifyPeso']);
 $klein->respond('DELETE', '/admin/peso', ['PesoController', 'deletePeso']);
