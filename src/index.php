@@ -33,7 +33,7 @@ $klein->respond('POST', '/admin/auth', ['AuthController', 'adminLogin']);
 $klein->respond('POST', '/admin/atleta/resetpassword', ['AuthController', 'resetPasswordClienti']);
 
 //Admin - atleta
-$klein->respond('GET', '/admin/atleta', ['UtentiController', 'getAtleti']);
+$klein->respond('POST', '/admin/atleta', ['UtentiController', 'getAtleti']);
 $klein->respond('POST', '/admin/atleta', ['UtentiController', 'addAtleta']);
 $klein->respond('PUT', '/admin/atleta', ['UtentiController', 'modifyAtleta']);
 $klein->respond('DELETE', '/admin/atleta', ['UtentiController', 'deleteAtleta']);

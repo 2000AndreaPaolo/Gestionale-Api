@@ -2,9 +2,12 @@
 
 class UtentiController{
 
-    // GET /admin/atleta
+    // POST /admin/atleta
     static function getAtleti($req, $res, $service, $app){
-        $stm = $app->db->prepare('SELECT atleta.id_atleta, atleta.nome, atleta.cognome, atleta.data_nascita, atleta.username, atleta.id_specializzazione, specializzazione.descrizione FROM atleta INNER JOIN specializzazione ON specializzazione.id_specializzazione=atleta.id_specializzazione WHERE atleta.deleted=false');
+        $body = $req->body();
+        $body = json_decode($body, true);
+        $stm = $app->db->prepare('SELECT atleta.id_atleta, atleta.nome, atleta.cognome, atleta.data_nascita, atleta.username, atleta.id_specializzazione, specializzazione.descrizione FROM atleta INNER JOIN specializzazione ON specializzazione.id_specializzazione=atleta.id_specializzazione WHERE atleta.deleted=false AND atleta.id_coach=:id_coach');
+        $stm->bindValue(":id_coach", $body);
         $stm->execute();
         $dbres = $stm->fetchAll(PDO::FETCH_ASSOC);
 

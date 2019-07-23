@@ -10,6 +10,7 @@ CREATE TABLE atleta(
     password                VARCHAR(60) NOT NULL,
     data_nascita            DATE NOT NULL,
     id_specializzazione     BIGINT UNSIGNED NOT NULL REFERENCES specializzazione (id_specializzazione),
+    id_coach                BIGINT UNSIGNED NOT NULL REFERENCES coach (id_coach),
     deleted                 BOOLEAN NOT NULL DEFAULT FALSE
 );
 

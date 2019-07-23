@@ -7,14 +7,15 @@ INSERT INTO specializzazione ( descrizione ) VALUES
 ('Funzionale');
 
 -- Insert rows into table 'atleta'
-INSERT INTO atleta ( nome, cognome, username, password, data_nascita, id_specializzazione ) VALUES 
-('alberto', 'rossi', 'alberto.rossi', 'fe01ce2a7fbac8fafaed7c982a04e229', '1994-01-20', 1),
-('luciano', 'paolo', 'luciano.paolo', 'fe01ce2a7fbac8fafaed7c982a04e229', '1994-01-20', 2),
-('valentina', 'paolo', 'valentina.paolo', 'fe01ce2a7fbac8fafaed7c982a04e229', '1994-01-20', 3);
+INSERT INTO atleta ( nome, cognome, username, password, data_nascita, id_specializzazione, id_coach ) VALUES 
+('alberto', 'rossi', 'alberto.rossi', 'fe01ce2a7fbac8fafaed7c982a04e229', '1994-01-20', 1, 1),
+('luciano', 'paolo', 'luciano.paolo', 'fe01ce2a7fbac8fafaed7c982a04e229', '1994-01-20', 2, 1),
+('valentina', 'paolo', 'valentina.paolo', 'fe01ce2a7fbac8fafaed7c982a04e229', '1994-01-20', 3, 2);
 
 -- Insert rows into table 'coach'
 INSERT INTO coach ( nome, cognome, username, password ) VALUES 
-('andrea', 'paolo', 'andrea.paolo', 'fe01ce2a7fbac8fafaed7c982a04e229');
+('andrea', 'paolo', 'andrea.paolo', 'fe01ce2a7fbac8fafaed7c982a04e229'),
+('secondo', 'coach', 'Secondo.coach', 'fe01ce2a7fbac8fafaed7c982a04e229');
 
 -- Insert rows into table 'esercizio'
 INSERT INTO esercizio ( descrizione, id_gruppoMuscolare ) VALUES 
