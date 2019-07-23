@@ -72,6 +72,7 @@ CREATE TABLE plicometria(
     percentuale         FLOAT(10) NOT NULL,
     data_rilevazione    DATE NOT NULL,
     note                TEXT,
+    id_coach            BIGINT UNSIGNED NOT NULL REFERENCES coach (id_coach),
     deleted             BOOLEAN NOT NULL DEFAULT FALSE
 );
 

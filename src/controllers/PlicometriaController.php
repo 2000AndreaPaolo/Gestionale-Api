@@ -4,7 +4,10 @@ class PlicometriaController{
 
     // GET /admin/plicometria
     static function getPlicometrie($req, $res, $service, $app){
-        $stm = $app->db->prepare('SELECT plicometria.*, atleta.nome, atleta.cognome, atleta.data_nascita FROM plicometria INNER JOIN atleta ON plicometria.id_atleta=atleta.id_atleta WHERE plicometria.deleted = false ORDER BY plicometria.data_rilevazione DESC');
+        $body = $req->body();
+        $body = json_decode($body, true);
+        $stm = $app->db->prepare('SELECT plicometria.*, atleta.nome, atleta.cognome, atleta.data_nascita FROM plicometria INNER JOIN atleta ON plicometria.id_atleta=atleta.id_atleta WHERE plicometria.deleted = false AND plicometria.id_coach=:id_coach ORDER BY plicometria.data_rilevazione DESC');
+        $stm->bindValue(":id_coach", $body);
         $stm->execute();
         $dbres = $stm->fetchAll(PDO::FETCH_ASSOC);
 
@@ -31,7 +34,7 @@ class PlicometriaController{
     static function addPlicometria($req, $res, $service, $app){
         $body = $req->body();
         $body = json_decode($body, true);
-        $stm = $app->db->prepare('INSERT INTO plicometria ( id_atleta, pettorale, addome, gamba, percentuale, data_rilevazione, note ) VALUES (:id_atleta,:pettorale,:addome,:gamba,:percentuale,:data_rilevazione,:note)');
+        $stm = $app->db->prepare('INSERT INTO plicometria ( id_atleta, pettorale, addome, gamba, percentuale, data_rilevazione, note, id_coach ) VALUES (:id_atleta,:pettorale,:addome,:gamba,:percentuale,:data_rilevazione,:note,:id_coach)');
         $stm->bindValue(":id_atleta", $body['id_atleta']);
         $stm->bindValue(":pettorale", $body['pettorale']);
         $stm->bindValue(":addome", $body['addome']);
@@ -39,11 +42,12 @@ class PlicometriaController{
         $stm->bindValue(":percentuale", $body['percentuale']);
         $stm->bindValue(":data_rilevazione", $body['data_rilevazione']);
         $stm->bindValue(":note", $body['note']);
+        $stm->bindValue(":id_coach", $body['id_coach']);
         $stm->execute();
 		if($stm->rowCount() > 0){
 			$res->json(["message" => "OK", "code" => 200 ]);
 		}else{
-			$res->json(["message" => "Plicometria non aggiunta", "code" => 500 ]);
+			$res->json(["message" => $stm->errorInfo(), "code" => 500 ]);
 		}
     }
 
@@ -51,7 +55,7 @@ class PlicometriaController{
     static function modifyPlicometria($req, $res, $service, $app){
         $body = $req->body();
         $body = json_decode($body, true);
-        $stm = $app->db->prepare('UPDATE plicometria SET id_atleta=:id_atleta, pettorale=:pettorale, addome=:addome, gamba=:gamba, percentuale=:percentuale, data_rilevazione=:data_rilevazione,note=:note WHERE id_plicometria=:id_plicometria');
+        $stm = $app->db->prepare('UPDATE plicometria SET id_atleta=:id_atleta, pettorale=:pettorale, addome=:addome, gamba=:gamba, percentuale=:percentuale, data_rilevazione=:data_rilevazione,note=:note, id_coach=:id_coach WHERE id_plicometria=:id_plicometria');
         $stm->bindValue(":id_plicometria", $body['id_plicometria']);
         $stm->bindValue(":id_atleta", $body['id_atleta']);
         $stm->bindValue(":pettorale", $body['pettorale']);
@@ -60,6 +64,7 @@ class PlicometriaController{
         $stm->bindValue(":percentuale", $body['percentuale']);
         $stm->bindValue(":data_rilevazione", $body['data_rilevazione']);
         $stm->bindValue(":note", $body['note']);
+        $stm->bindValue(":id_coach", $body['id_coach']);
         $stm->execute();
 		if($stm->rowCount() > 0){
 			$res->json(["message" => "OK", "code" => 200 ]);
