@@ -17,7 +17,7 @@ defaultEntryPoints = ["http"]
 
 [docker]
 endpoint = "unix:///var/run/docker.sock"
-domain = "tridentescarface.com"
+domain = "localhost"
 watch = true
 exposedByDefault = false
 

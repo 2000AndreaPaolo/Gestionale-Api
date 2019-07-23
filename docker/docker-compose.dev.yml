@@ -17,6 +17,6 @@ services:
       - "traefik.port=80"
       - 'traefik.backend=phpmyadmin'
       - 'traefik.enable=true'
-      - "traefik.frontend.rule=Host:phpmyadmin.tridentescarface.com"
+      - "traefik.frontend.rule=Host:phpmyadmin.localhost"
     networks:
       - proxy
