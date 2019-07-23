@@ -32,17 +32,18 @@ class UtentiController{
         $body = json_decode($body, true);
         $username = $body['nome'].'.'.$body['cognome'];
         $password = $body['nome'].'.'.$body['cognome'];
-        $stm = $app->db->prepare('INSERT INTO atleta ( nome, cognome, username, password, data_nascita, id_specializzazione ) VALUES (:nome, :cognome, :username, :password, :data_nascita, :id_specializzazione)');
+        $stm = $app->db->prepare('INSERT INTO atleta ( nome, cognome, username, password, data_nascita, id_specializzazione, id_coach ) VALUES (:nome, :cognome, :username, :password, :data_nascita, :id_specializzazione, :id_coach)');
         $stm->bindValue(":nome", $body['nome']);
         $stm->bindValue(":cognome", $body['cognome']);
         $stm->bindValue(":username", $username);
         $stm->bindValue(":password", md5($password));
         $stm->bindValue(":data_nascita", $body['data_nascita']);
         $stm->bindValue(":id_specializzazione", $body['id_specializzazione']);
+        $stm->bindValue(":id_coach", $body['id_coach']);
 	    if($stm->execute()){
 			$res->json(["message" => "OK", "code" => 200 ]);
 		}else{
-			$res->json(["message" => "Atleta non aggiunto", "code" => 500, "error" => $stm->errorInfo() ]);
+			$res->json(["message" => $stm->errorInfo(), "code" => 500]);
 		}
     }
 
@@ -51,18 +52,19 @@ class UtentiController{
         $body = $req->body();
         $body = json_decode($body, true);
         $username = $body['nome'].'.'.$body['cognome'];
-        $stm = $app->db->prepare('UPDATE atleta SET nome=:nome, cognome=:cognome, username=:username, data_nascita=:data_nascita, id_specializzazione=:id_specializzazione WHERE id_atleta=:id_atleta');
+        $stm = $app->db->prepare('UPDATE atleta SET nome=:nome, cognome=:cognome, username=:username, data_nascita=:data_nascita, id_specializzazione=:id_specializzazione WHERE id_atleta=:id_atleta AND id_coach=:id_coach');
         $stm->bindValue(":nome", $body['nome']);
         $stm->bindValue(":cognome", $body['cognome']);
         $stm->bindValue(":username", $username);
         $stm->bindValue(":data_nascita", $body['data_nascita']);
         $stm->bindValue(":id_atleta", $body['id_atleta']);
         $stm->bindValue(":id_specializzazione", $body['id_specializzazione']);
+        $stm->bindValue(":id_coach", $body['id_coach']);
         $stm->execute();
 		if($stm->rowCount() > 0){
 			$res->json(["message" => "OK", "code" => 200 ]);
 		}else{
-			$res->json(["message" => "Atleta non modificato", "code" => 500 ]);
+			$res->json(["message" => $stm->errorInfo(), "code" => 500 ]);
 		}
     }
 
