@@ -82,6 +82,7 @@ CREATE TABLE programma(
     data_inizio     DATE NOT NULL,
     data_fine       DATE NOT NULL,
     note            TEXT,
+    id_coach        BIGINT UNSIGNED NOT NULL REFERENCES coach (id_coach),
     deleted         BOOLEAN NOT NULL DEFAULT FALSE
 );
 

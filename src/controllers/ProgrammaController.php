@@ -4,7 +4,10 @@ class ProgrammaController{
 
     // GET /admin/programma
     static function getProgramma($req, $res, $service, $app){
-        $stm = $app->db->prepare('SELECT programma.*, atleta.nome, atleta.cognome FROM programma INNER JOIN atleta ON programma.id_atleta=atleta.id_atleta WHERE programma.deleted=false ORDER BY programma.data_inizio DESC');
+        $body = $req->body();
+        $body = json_decode($body, true);
+        $stm = $app->db->prepare('SELECT programma.*, atleta.nome, atleta.cognome FROM programma INNER JOIN atleta ON programma.id_atleta=atleta.id_atleta WHERE programma.deleted=false AND programma.id_coach=:id_coach ORDER BY programma.data_inizio DESC');
+        $stm->bindValue(":id_coach", $body);
         $stm->execute();
         $dbres = $stm->fetchAll(PDO::FETCH_ASSOC);
 

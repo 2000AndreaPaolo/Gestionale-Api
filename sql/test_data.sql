@@ -46,9 +46,9 @@ INSERT INTO plicometria ( id_atleta, pettorale, addome, gamba, percentuale, data
 (3, 1, 1, 3, 15, '2019-05-19', 'Prova Prova', 2);
 
 -- Insert rows into table 'programma'
-INSERT INTO programma ( id_atleta, data_inizio, data_fine, note ) VALUES 
-(1, '2019-05-15', '2019-07-15', 'Prova'),
-(2, '2019-04-15', '2019-07-15', 'Prova Prova');
+INSERT INTO programma ( id_atleta, data_inizio, data_fine, note, id_coach ) VALUES 
+(1, '2019-05-15', '2019-07-15', 'Prova', 1),
+(2, '2019-04-15', '2019-07-15', 'Prova Prova', 2);
 
 -- Insert rows into table 'programmazione'
 INSERT INTO programmazione ( id_esercizio, id_programma, settimana, giorno, serie, ripetizioni, carico, note, data ) VALUES 
