@@ -87,7 +87,7 @@ $klein->respond('PUT', '/admin/peso', ['PesoController', 'modifyPeso']);
 $klein->respond('DELETE', '/admin/peso', ['PesoController', 'deletePeso']);
 
 //Admin - prestazione
-$klein->respond('GET', '/admin/prestazione', ['PrestazioneController', 'getPrestazione']);
+$klein->respond('POST', '/admin/get/prestazione', ['PrestazioneController', 'getPrestazione']);
 $klein->respond('POST', '/admin/prestazione', ['PrestazioneController', 'addPrestazione']);
 $klein->respond('PUT', '/admin/prestazione', ['PrestazioneController', 'modifyPrestazione']);
 $klein->respond('DELETE', '/admin/prestazione', ['PrestazioneController', 'deletePrestazione']);

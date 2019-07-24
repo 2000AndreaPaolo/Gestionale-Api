@@ -4,7 +4,10 @@ class PrestazioneController{
 
     // GET /admin/prestazione
     static function getPrestazione($req, $res, $service, $app){
-        $stm = $app->db->prepare('SELECT prestazione.*, atleta.nome, atleta.cognome, esercizio.descrizione FROM prestazione INNER JOIN atleta ON atleta.id_atleta=prestazione.id_atleta INNER JOIN esercizio ON esercizio.id_esercizio=prestazione.id_esercizio WHERE prestazione.deleted=false');
+        $body = $req->body();
+        $body = json_decode($body, true);
+        $stm = $app->db->prepare('SELECT prestazione.*, atleta.nome, atleta.cognome, esercizio.descrizione FROM prestazione INNER JOIN atleta ON atleta.id_atleta=prestazione.id_atleta INNER JOIN esercizio ON esercizio.id_esercizio=prestazione.id_esercizio WHERE prestazione.deleted=false AND atleta.id_coach=:id_coach');
+        $stm->bindValue(":id_coach", $body);
         $stm->execute();
         $dbres = $stm->fetchAll(PDO::FETCH_ASSOC);
 
