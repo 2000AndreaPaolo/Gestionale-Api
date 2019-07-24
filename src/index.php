@@ -69,7 +69,7 @@ $klein->respond('PUT', '/admin/plicometria', ['PlicometriaController', 'modifyPl
 $klein->respond('DELETE', '/admin/plicometria', ['PlicometriaController', 'deletePlicometria']);
 
 //Admin - programmazione
-$klein->respond('GET', '/admin/programmazione', ['ProgrammazioneController', 'getProgrammazione']);
+$klein->respond('POST', '/admin/get/programmazione', ['ProgrammazioneController', 'getProgrammazione']);
 $klein->respond('POST', '/admin/programmazione', ['ProgrammazioneController', 'addProgrammazione']);
 $klein->respond('PUT', '/admin/programmazione', ['ProgrammazioneController', 'modifyProgrammazione']);
 $klein->respond('DELETE', '/admin/programmazione', ['ProgrammazioneController', 'deleteProgrammazione']);

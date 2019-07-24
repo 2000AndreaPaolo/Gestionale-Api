@@ -4,7 +4,10 @@ class ProgrammazioneController{
 
     // GET /admin/programmazione
     static function getProgrammazione($req, $res, $service, $app){
-        $stm = $app->db->prepare('SELECT programmazione.*, esercizio.descrizione FROM programmazione INNER JOIN esercizio ON programmazione.id_esercizio = esercizio.id_esercizio WHERE programmazione.deleted=false ORDER BY programmazione.giorno ASC, programmazione.id_programmazione ASC, programmazione.settimana ASC');
+        $body = $req->body();
+        $body = json_decode($body, true);
+        $stm = $app->db->prepare('SELECT programmazione.*, esercizio.descrizione, programma.* FROM programmazione INNER JOIN esercizio ON programmazione.id_esercizio = esercizio.id_esercizio INNER JOIN programma ON programmazione.id_programma=programma.id_programma WHERE programmazione.deleted=false AND programma.id_programma=:id_programma ORDER BY programmazione.giorno ASC, programmazione.id_programmazione ASC, programmazione.settimana ASC');
+        $stm->bindValue(":id_programma", $body);
         $stm->execute();
         $dbres = $stm->fetchAll(PDO::FETCH_ASSOC);
 
