@@ -51,13 +51,13 @@ $klein->respond('DELETE', '/admin/esercizio', ['EsercizziController', 'deleteEse
 $klein->respond('GET', '/admin/gruppomuscolare', ['EsercizziController', 'getGruppoMuscolare']);
 
 //Admin - scheda
-$klein->respond('GET', '/admin/scheda', ['SchedaController', 'getSchede']);
+$klein->respond('POST', '/admin/get/scheda', ['SchedaController', 'getSchede']);
 $klein->respond('POST', '/admin/scheda', ['SchedaController', 'addScheda']);
 $klein->respond('PUT', '/admin/scheda', ['SchedaController', 'modifyScheda']);
 $klein->respond('DELETE', '/admin/scheda', ['SchedaController', 'deleteScheda']);
 
 //Admin - progressione
-$klein->respond('GET', '/admin/progressione', ['ProgressioneController', 'getProgressione']);
+$klein->respond('POST', '/admin/get/progressione', ['ProgressioneController', 'getProgressione']);
 $klein->respond('POST', '/admin/progressione', ['ProgressioneController', 'addProgressione']);
 $klein->respond('PUT', '/admin/progressione', ['ProgressioneController', 'modifyProgressione']);
 $klein->respond('DELETE', '/admin/progressione', ['ProgressioneController', 'deleteProgressione']);

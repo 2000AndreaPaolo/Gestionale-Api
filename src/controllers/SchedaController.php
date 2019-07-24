@@ -4,7 +4,10 @@ class SchedaController{
 
     // GET /admin/scheda
     static function getSchede($req, $res, $service, $app){
-        $stm = $app->db->prepare('SELECT scheda.id_scheda, scheda.nome, scheda.data_inizio, scheda.data_fine, scheda.durata, scheda.id_atleta, atleta.nome AS nome_atleta, atleta.cognome AS cognome_atleta FROM scheda INNER JOIN atleta ON scheda.id_atleta = atleta.id_atleta WHERE scheda.deleted = false');
+        $body = $req->body();
+        $body = json_decode($body, true);
+        $stm = $app->db->prepare('SELECT scheda.id_coach, scheda.id_scheda, scheda.nome, scheda.data_inizio, scheda.data_fine, scheda.durata, scheda.id_atleta, atleta.nome AS nome_atleta, atleta.cognome AS cognome_atleta FROM scheda INNER JOIN atleta ON scheda.id_atleta = atleta.id_atleta WHERE scheda.deleted = false AND scheda.id_coach=:id_coach');
+        $stm->bindValue(":id_coach", $body);
         $stm->execute();
         $dbres = $stm->fetchAll(PDO::FETCH_ASSOC);
 

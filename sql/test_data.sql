@@ -31,9 +31,9 @@ INSERT INTO gruppoMuscolare ( descrizione ) VALUES
 ('Dorso');
 
 -- Insert rows into table 'scheda'
-INSERT INTO scheda ( nome, durata, data_inizio, data_fine, id_atleta ) VALUES 
-('scheda1', 6, '2019-05-15', '2019-07-15', 1),
-('scheda2', 6, '2019-05-15', '2019-07-15', 1);
+INSERT INTO scheda ( nome, durata, data_inizio, data_fine, id_atleta, id_coach ) VALUES 
+('scheda1', 6, '2019-05-15', '2019-07-15', 1, 1),
+('scheda2', 6, '2019-05-15', '2019-07-15', 1, 2);
 
 -- Insert rows into table 'progressione'
 INSERT INTO progressione ( id_esercizio, id_scheda, giorno, serie, ripetizioni, note ) VALUES 

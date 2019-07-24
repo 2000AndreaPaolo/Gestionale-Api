@@ -49,6 +49,7 @@ CREATE TABLE scheda(
     data_inizio     DATE NOT NULL,
     data_fine       DATE NOT NULL,
     id_atleta       BIGINT UNSIGNED NOT NULL REFERENCES atleta (id_atleta),
+    id_coach        BIGINT UNSIGNED NOT NULL REFERENCES coach (id_coach),
     deleted         BOOLEAN NOT NULL DEFAULT FALSE
 );
 
