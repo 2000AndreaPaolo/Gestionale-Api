@@ -68,4 +68,4 @@ INSERT INTO prestazione ( id_atleta, id_esercizio, peso, note ) VALUES
 -- Insert rows into table 'note'
 INSERT INTO note ( id_atleta, note ) VALUES 
 (1,'Prova'),
-(2,'Prova');
+(3,'Prova');

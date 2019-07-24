@@ -4,7 +4,10 @@ class NoteController{
 
     // GET /admin/note
     static function getNote($req, $res, $service, $app){
-        $stm = $app->db->prepare('SELECT note.*, atleta.nome, atleta.cognome FROM note INNER JOIN atleta ON note.id_atleta=atleta.id_atleta WHERE note.deleted=false ORDER BY note.data DESC');
+        $body = $req->body();
+        $body = json_decode($body, true);
+        $stm = $app->db->prepare('SELECT note.*, atleta.nome, atleta.cognome, atleta.id_coach FROM note INNER JOIN atleta ON note.id_atleta=atleta.id_atleta WHERE note.deleted=false AND atleta.id_coach=:id_coach ORDER BY note.data DESC');
+        $stm->bindValue(":id_coach", $body);
         $stm->execute();
         $dbres = $stm->fetchAll(PDO::FETCH_ASSOC);
 

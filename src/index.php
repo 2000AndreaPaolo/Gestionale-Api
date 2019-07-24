@@ -94,7 +94,7 @@ $klein->respond('DELETE', '/admin/prestazione', ['PrestazioneController', 'delet
 $klein->respond('POST', '/admin/prestazione/massimale', ['PrestazioneController', 'getMassimale']);
 
 //Admin - note
-$klein->respond('GET', '/admin/note', ['NoteController', 'getNote']);
+$klein->respond('post', '/admin/get/note', ['NoteController', 'getNote']);
 $klein->respond('POST', '/admin/note', ['NoteController', 'addNote']);
 $klein->respond('PUT', '/admin/note', ['NoteController', 'modifyNote']);
 $klein->respond('DELETE', '/admin/note', ['NoteController', 'deleteNote']);
