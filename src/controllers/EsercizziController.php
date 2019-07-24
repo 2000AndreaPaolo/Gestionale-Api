@@ -4,7 +4,10 @@ class EsercizziController{
 
     // GET /admin/esercizio
     static function getEsercizzi($req, $res, $service, $app){
-        $stm = $app->db->prepare('SELECT esercizio.id_esercizio, esercizio.descrizione, gruppoMuscolare.descrizione AS descrizioneMuscolare, gruppoMuscolare.id_gruppoMuscolare FROM esercizio INNER JOIN gruppoMuscolare ON esercizio.id_gruppoMuscolare = gruppoMuscolare.id_gruppoMuscolare WHERE esercizio.deleted=false');
+        $body = $req->body();
+        $body = json_decode($body, true);
+        $stm = $app->db->prepare('SELECT esercizio.id_esercizio, esercizio.descrizione, gruppoMuscolare.descrizione AS descrizioneMuscolare, gruppoMuscolare.id_gruppoMuscolare FROM esercizio INNER JOIN gruppoMuscolare ON esercizio.id_gruppoMuscolare = gruppoMuscolare.id_gruppoMuscolare WHERE esercizio.deleted=false AND esercizio.id_coach=:id_coach');
+        $stm->bindValue(":id_coach", $body);
         $stm->execute();
         $dbres = $stm->fetchAll(PDO::FETCH_ASSOC);
 

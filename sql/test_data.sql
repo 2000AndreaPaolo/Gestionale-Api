@@ -18,11 +18,11 @@ INSERT INTO coach ( nome, cognome, username, password ) VALUES
 ('secondo', 'coach', 'Secondo.coach', 'fe01ce2a7fbac8fafaed7c982a04e229');
 
 -- Insert rows into table 'esercizio'
-INSERT INTO esercizio ( descrizione, id_gruppoMuscolare ) VALUES 
-('Panca piana', 1),
-('Squat', 2),
-('Stacco', 3),
-('Lat machine', 3);
+INSERT INTO esercizio ( descrizione, id_gruppoMuscolare, id_coach ) VALUES 
+('Panca piana', 1, 1),
+('Squat', 2, 1),
+('Stacco', 3, 2),
+('Lat machine', 3, 2);
 
 -- Insert rows into table 'gruppoMuscolare'
 INSERT INTO gruppoMuscolare ( descrizione ) VALUES 
