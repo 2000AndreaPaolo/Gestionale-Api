@@ -6,7 +6,7 @@ class ProgrammazioneController{
     static function getProgrammazione($req, $res, $service, $app){
         $body = $req->body();
         $body = json_decode($body, true);
-        $stm = $app->db->prepare('SELECT programmazione.*, esercizio.descrizione, programma.* FROM programmazione INNER JOIN esercizio ON programmazione.id_esercizio = esercizio.id_esercizio INNER JOIN programma ON programmazione.id_programma=programma.id_programma WHERE programmazione.deleted=false AND programma.id_programma=:id_programma ORDER BY programmazione.data ASC, programmazione.id_programmazione ASC');
+        $stm = $app->db->prepare('SELECT programmazione.*, esercizio.descrizione, programmazione.note AS note_programmazione,programma.* FROM programmazione INNER JOIN esercizio ON programmazione.id_esercizio = esercizio.id_esercizio INNER JOIN programma ON programmazione.id_programma=programma.id_programma WHERE programmazione.deleted=false AND programma.id_programma=:id_programma ORDER BY programmazione.data ASC, programmazione.id_programmazione ASC');
         $stm->bindValue(":id_programma", $body);
         $stm->execute();
         $dbres = $stm->fetchAll(PDO::FETCH_ASSOC);
@@ -20,7 +20,7 @@ class ProgrammazioneController{
                 'serie' => +$entry['serie'],
                 'ripetizioni' => +$entry['ripetizioni'],
                 'carico' => +$entry['carico'],
-                'note' => $entry['note'],
+                'note' => $entry['note_programmazione'],
                 'nome_esercizio' => $entry['descrizione']
             ];
         }, $dbres);

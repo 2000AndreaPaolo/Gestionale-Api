@@ -30,8 +30,10 @@ class UtentiController{
     static function addAtleta($req, $res, $service, $app){
         $body = $req->body();
         $body = json_decode($body, true);
-        $username = $body['nome'].'.'.$body['cognome'];
-        $password = $body['nome'].'.'.$body['cognome'];
+        $username = strtolower($body['nome'].'.'.$body['cognome']);
+        $username = str_replace(' ', '', $username);
+        $password = strtolower($body['nome'].'.'.$body['cognome']);
+        $password = str_replace(' ', '', $password);
         $stm = $app->db->prepare('INSERT INTO atleta ( nome, cognome, username, password, data_nascita, id_specializzazione, id_coach ) VALUES (:nome, :cognome, :username, :password, :data_nascita, :id_specializzazione, :id_coach)');
         $stm->bindValue(":nome", $body['nome']);
         $stm->bindValue(":cognome", $body['cognome']);
@@ -52,6 +54,7 @@ class UtentiController{
         $body = $req->body();
         $body = json_decode($body, true);
         $username = $body['nome'].'.'.$body['cognome'];
+        $username = str_replace(' ', '', $username);
         $stm = $app->db->prepare('UPDATE atleta SET nome=:nome, cognome=:cognome, username=:username, data_nascita=:data_nascita, id_specializzazione=:id_specializzazione WHERE id_atleta=:id_atleta AND id_coach=:id_coach');
         $stm->bindValue(":nome", $body['nome']);
         $stm->bindValue(":cognome", $body['cognome']);

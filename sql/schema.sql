@@ -32,15 +32,8 @@ CREATE TABLE coach(
 CREATE TABLE esercizio(
     id_esercizio        SERIAL PRIMARY KEY,
     descrizione         VARCHAR(60) NOT NULL,
-    id_gruppoMuscolare  BIGINT UNSIGNED NOT NULL REFERENCES gruppoMuscolare (id_gruppoMuscolare),
-    id_coach        BIGINT UNSIGNED NOT NULL REFERENCES coach (id_coach),
+    id_coach            BIGINT UNSIGNED NOT NULL REFERENCES coach (id_coach),
     deleted             BOOLEAN NOT NULL DEFAULT FALSE
-);
-
-CREATE TABLE gruppoMuscolare(
-    id_gruppoMuscolare    SERIAL PRIMARY KEY,
-    descrizione           VARCHAR(60) NOT NULL,
-    deleted               BOOLEAN NOT NULL DEFAULT FALSE
 );
 
 CREATE TABLE scheda(

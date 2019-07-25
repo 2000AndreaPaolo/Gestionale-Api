@@ -30,11 +30,12 @@ class ProgrammaController{
     static function addProgramma($req, $res, $service, $app){
         $body = $req->body();
         $body = json_decode($body, true);
-        $stm = $app->db->prepare('INSERT INTO programma ( id_atleta, data_inizio, data_fine, note ) VALUES (:id_atleta,:data_inizio,:data_fine,:note)');
+        $stm = $app->db->prepare('INSERT INTO programma ( id_atleta, data_inizio, data_fine, note, id_coach ) VALUES (:id_atleta,:data_inizio,:data_fine,:note,:id_coach)');
         $stm->bindValue(":id_atleta", $body['id_atleta']);
         $stm->bindValue(":data_inizio", $body['data_inizio']);
         $stm->bindValue(":data_fine", $body['data_fine']);
         $stm->bindValue(":note", $body['note']);
+        $stm->bindValue(":id_coach", $body['id_coach']);
         $stm->execute();
 		if($stm->rowCount() > 0){
 			$res->json(["message" => "OK", "code" => 200 ]);

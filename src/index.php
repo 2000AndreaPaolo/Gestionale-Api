@@ -47,9 +47,6 @@ $klein->respond('POST', '/admin/esercizio', ['EsercizziController', 'addEsercizi
 $klein->respond('PUT', '/admin/esercizio', ['EsercizziController', 'modifyEsercizio']);
 $klein->respond('DELETE', '/admin/esercizio', ['EsercizziController', 'deleteEsercizio']);
 
-//Admin - gruppo muscolare
-$klein->respond('GET', '/admin/gruppomuscolare', ['EsercizziController', 'getGruppoMuscolare']);
-
 //Admin - scheda
 $klein->respond('POST', '/admin/get/scheda', ['SchedaController', 'getSchede']);
 $klein->respond('POST', '/admin/scheda', ['SchedaController', 'addScheda']);
