@@ -100,7 +100,7 @@ $klein->respond('PUT', '/admin/note', ['NoteController', 'modifyNote']);
 $klein->respond('DELETE', '/admin/note', ['NoteController', 'deleteNote']);
 
 //Admin - cestino
-$klein->respond('GET', '/admin/deleted/atleti', ['CestinoController', 'getAtleti']);
+$klein->respond('POST', '/admin/deleted/atleti/get', ['CestinoController', 'getAtleti']);
 $klein->respond('POST', '/admin/deleted/atleti/restore', ['CestinoController', 'restoreAtleti']);
 
 //Atleta - auth

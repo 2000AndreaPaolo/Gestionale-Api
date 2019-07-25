@@ -3,7 +3,10 @@
 class CestinoController{
     // GET /admin/deleted/atleti
     static function getAtleti($req, $res, $service, $app){
-        $stm = $app->db->prepare('SELECT * FROM deleted_atleta');
+        $body = $req->body();
+        $body = json_decode($body, true);
+        $stm = $app->db->prepare('SELECT * FROM deleted_atleta WHERE id_coach=:id_coach');
+        $stm->bindValue(":id_coach", $body);
         $stm->execute();
         $dbres = $stm->fetchAll(PDO::FETCH_ASSOC);
 
