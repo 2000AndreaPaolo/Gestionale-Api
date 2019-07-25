@@ -6,7 +6,7 @@ class ProgrammazioneController{
     static function getProgrammazione($req, $res, $service, $app){
         $body = $req->body();
         $body = json_decode($body, true);
-        $stm = $app->db->prepare('SELECT programmazione.*, esercizio.descrizione, programma.* FROM programmazione INNER JOIN esercizio ON programmazione.id_esercizio = esercizio.id_esercizio INNER JOIN programma ON programmazione.id_programma=programma.id_programma WHERE programmazione.deleted=false AND programma.id_programma=:id_programma ORDER BY programmazione.giorno ASC, programmazione.id_programmazione ASC, programmazione.settimana ASC');
+        $stm = $app->db->prepare('SELECT programmazione.*, esercizio.descrizione, programma.* FROM programmazione INNER JOIN esercizio ON programmazione.id_esercizio = esercizio.id_esercizio INNER JOIN programma ON programmazione.id_programma=programma.id_programma WHERE programmazione.deleted=false AND programma.id_programma=:id_programma ORDER BY programmazione.data ASC, programmazione.id_programmazione ASC');
         $stm->bindValue(":id_programma", $body);
         $stm->execute();
         $dbres = $stm->fetchAll(PDO::FETCH_ASSOC);
@@ -17,8 +17,6 @@ class ProgrammazioneController{
                 'id_programma' => +$entry['id_programma'],
                 'id_esercizio' => +$entry['id_esercizio'],
                 'data' => $entry['data'],
-                'settimana' => +$entry['settimana'],
-                'giorno' => +$entry['giorno'],
                 'serie' => +$entry['serie'],
                 'ripetizioni' => +$entry['ripetizioni'],
                 'carico' => +$entry['carico'],
@@ -34,12 +32,10 @@ class ProgrammazioneController{
     static function addProgrammazione($req, $res, $service, $app){
         $body = $req->body();
         $body = json_decode($body, true);
-        $stm = $app->db->prepare('INSERT INTO programmazione ( id_programma, id_esercizio, data, settimana, giorno, serie, ripetizioni, carico, note ) VALUES (:id_programma,:id_esercizio,:data,:settimana,:giorno,:serie,:ripetizioni,:carico,:note)');
+        $stm = $app->db->prepare('INSERT INTO programmazione ( id_programma, id_esercizio, data, serie, ripetizioni, carico, note ) VALUES (:id_programma,:id_esercizio,:data,:serie,:ripetizioni,:carico,:note)');
         $stm->bindValue(":id_programma", $body['id_programma']);
         $stm->bindValue(":id_esercizio", $body['id_esercizio']);
-        $stm->bindValue(":settimana", $body['settimana']);
         $stm->bindValue(":data", $body['data']);
-        $stm->bindValue(":giorno", $body['giorno']);
         $stm->bindValue(":serie", $body['serie']);
         $stm->bindValue(":ripetizioni", $body['ripetizioni']);
         $stm->bindValue(":carico", $body['carico']);
@@ -56,13 +52,11 @@ class ProgrammazioneController{
     static function modifyProgrammazione($req, $res, $service, $app){
         $body = $req->body();
         $body = json_decode($body, true);
-        $stm = $app->db->prepare('UPDATE programmazione SET id_programma=:id_programma, id_esercizio=:id_esercizio, data=:data, settimana=:settimana, giorno=:giorno, serie=:serie, ripetizioni=:ripetizioni, carico=:carico, note=:note, data=:data WHERE id_programmazione=:id_programmazione');
+        $stm = $app->db->prepare('UPDATE programmazione SET id_programma=:id_programma, id_esercizio=:id_esercizio, data=:data, serie=:serie, ripetizioni=:ripetizioni, carico=:carico, note=:note, data=:data WHERE id_programmazione=:id_programmazione');
         $stm->bindValue(":id_programmazione", $body['id_programmazione']);
         $stm->bindValue(":id_programma", $body['id_programma']);
         $stm->bindValue(":id_esercizio", $body['id_esercizio']);
         $stm->bindValue(":settimana", $body['data']);
-        $stm->bindValue(":settimana", $body['settimana']);
-        $stm->bindValue(":giorno", $body['giorno']);
         $stm->bindValue(":serie", $body['serie']);
         $stm->bindValue(":ripetizioni", $body['ripetizioni']);
         $stm->bindValue(":carico", $body['carico']);
@@ -94,7 +88,7 @@ class ProgrammazioneController{
     static function getProgrammazioneGiorno($req, $res, $service, $app){
         $body = $req->body();
         $body = json_decode($body, true);
-        $stm = $app->db->prepare('SELECT programmazione.*, esercizio.descrizione FROM programmazione INNER JOIN esercizio ON programmazione.id_esercizio = esercizio.id_esercizio INNER JOIN programma ON programma.id_programma=programmazione.id_programma WHERE programmazione.deleted=false AND programmazione.data=CURDATE() AND programma.id_programma=:id_programma ORDER BY programmazione.giorno ASC, programmazione.id_programmazione ASC, programmazione.settimana ASC');
+        $stm = $app->db->prepare('SELECT programmazione.*, esercizio.descrizione FROM programmazione INNER JOIN esercizio ON programmazione.id_esercizio = esercizio.id_esercizio INNER JOIN programma ON programma.id_programma=programmazione.id_programma WHERE programmazione.deleted=false AND programmazione.data=CURDATE() AND programma.id_programma=:id_programma ORDER BY programmazione.id_programmazione ASC, programmazione.data ASC');
         $stm->bindValue(":id_programma", $body);
         $stm->execute();
         $dbres = $stm->fetchAll(PDO::FETCH_ASSOC);

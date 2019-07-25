@@ -51,9 +51,9 @@ INSERT INTO programma ( id_atleta, data_inizio, data_fine, note, id_coach ) VALU
 (2, '2019-04-15', '2019-07-15', 'Prova Prova', 2);
 
 -- Insert rows into table 'programmazione'
-INSERT INTO programmazione ( id_esercizio, id_programma, settimana, giorno, serie, ripetizioni, carico, note, data ) VALUES 
-(1,1,1,1,4,15,80,'Prova', now()),
-(1,1,1,1,4,15,80,'Prova', now());
+INSERT INTO programmazione ( id_esercizio, id_programma, serie, ripetizioni, carico, note, data ) VALUES 
+(1,1,4,15,80,'Prova', now()),
+(1,1,4,15,80,'Prova', now());
 
 -- Insert rows into table 'peso'
 INSERT INTO peso ( id_atleta, peso, note ) VALUES 
