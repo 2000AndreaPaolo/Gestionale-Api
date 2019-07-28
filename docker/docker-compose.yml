@@ -15,7 +15,7 @@ services:
       - "traefik.port=80"
       - 'traefik.backend=api'
       - 'traefik.enable=true'
-      - "traefik.frontend.rule=Host:api.localhost"
+      - "traefik.frontend.rule=Host:api.tridentescarface.com"
     networks:
       - proxy
 
@@ -77,7 +77,7 @@ services:
       - "traefik.port=8080"
       - 'traefik.backend=traefik'
       - 'traefik.enable=true'
-      - "traefik.frontend.rule=Host:traefik.localhost"
+      - "traefik.frontend.rule=Host:traefik.tridentescarface.com"
 
 volumes:
   database-data:
