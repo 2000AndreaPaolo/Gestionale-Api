@@ -6,7 +6,7 @@ class EsercizziController{
     static function getEsercizzi($req, $res, $service, $app){
         $body = $req->body();
         $body = json_decode($body, true);
-        $stm = $app->db->prepare('SELECT esercizio.id_esercizio, esercizio.descrizione FROM esercizio WHERE esercizio.deleted=false AND esercizio.id_coach=:id_coach');
+        $stm = $app->db->prepare('SELECT esercizio.id_esercizio, esercizio.descrizione FROM esercizio WHERE esercizio.deleted=false AND esercizio.id_coach=:id_coach ORDER BY esercizio.descrizione ASC');
         $stm->bindValue(":id_coach", $body);
         $stm->execute();
         $dbres = $stm->fetchAll(PDO::FETCH_ASSOC);
