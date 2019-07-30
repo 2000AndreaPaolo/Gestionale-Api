@@ -31,12 +31,13 @@ class SchedaController{
     static function addScheda($req, $res, $service, $app){
         $body = $req->body();
         $body = json_decode($body, true);
-        $stm = $app->db->prepare('INSERT INTO scheda ( nome, data_inizio, data_fine, durata, id_atleta ) VALUES (:nome,:data_inizio,:data_fine,:durata,:id_atleta)');
+        $stm = $app->db->prepare('INSERT INTO scheda ( nome, data_inizio, data_fine, durata, id_atleta, id_coach ) VALUES (:nome,:data_inizio,:data_fine,:durata,:id_atleta,:id_coach)');
         $stm->bindValue(":nome", $body['nome']);
         $stm->bindValue(":data_inizio", $body['data_inizio']);
         $stm->bindValue(":data_fine", $body['data_fine']);
         $stm->bindValue(":durata", $body['durata']);
         $stm->bindValue(":id_atleta", $body['id_atleta']);
+        $stm->bindValue(":id_coach", $body['id_coach']);
         $stm->execute();
 		if($stm->rowCount() > 0){
 			$res->json(["message" => "OK", "code" => 200 ]);
