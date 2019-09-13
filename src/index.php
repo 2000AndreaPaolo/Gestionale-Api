@@ -64,6 +64,7 @@ $klein->respond('POST', '/admin/get/plicometria', ['PlicometriaController', 'get
 $klein->respond('POST', '/admin/plicometria', ['PlicometriaController', 'addPlicometria']);
 $klein->respond('PUT', '/admin/plicometria', ['PlicometriaController', 'modifyPlicometria']);
 $klein->respond('DELETE', '/admin/plicometria', ['PlicometriaController', 'deletePlicometria']);
+$klein->respond('POST', '/admin/plicometria/last', ['PlicometriaController', 'lastPlicometria']);
 
 //Admin - programmazione
 $klein->respond('POST', '/admin/get/programmazione', ['ProgrammazioneController', 'getProgrammazione']);
@@ -95,6 +96,7 @@ $klein->respond('post', '/admin/get/note', ['NoteController', 'getNote']);
 $klein->respond('POST', '/admin/note', ['NoteController', 'addNote']);
 $klein->respond('PUT', '/admin/note', ['NoteController', 'modifyNote']);
 $klein->respond('DELETE', '/admin/note', ['NoteController', 'deleteNote']);
+$klein->respond('POST', '/admin/note/last', ['NoteController', 'lastNote']);
 
 //Admin - cestino
 $klein->respond('POST', '/admin/deleted/atleti/get', ['CestinoController', 'getAtleti']);

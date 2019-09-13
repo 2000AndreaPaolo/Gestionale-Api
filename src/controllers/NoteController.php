@@ -88,4 +88,22 @@ class NoteController{
 
         $res->json($data);
     }
+
+    // POST /admin/note/last
+    static function lastNote($req, $res, $service, $app){
+        $body = $req->body();
+        $body = json_decode($body, true);
+        $stm = $app->db->prepare('SELECT * FROM note WHERE id_atleta=:id_atleta AND deleted=FALSE ORDER BY data LIMIT 1');
+        $stm->bindValue(":id_atleta", $body);
+        $stm->execute();
+        $dbres = $stm->fetchAll(PDO::FETCH_ASSOC);
+        $data = array_map(function($entry){
+            return [
+                'id_note' => +$entry['id_note'],
+                'data' => $entry['data'],
+                'note' => $entry['note']
+            ];
+        }, $dbres);
+        $res->json($data);
+    }
 }

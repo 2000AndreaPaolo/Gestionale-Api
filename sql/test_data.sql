@@ -22,7 +22,7 @@ INSERT INTO esercizio ( descrizione, id_coach ) VALUES
 ('Panca piana', 1),
 ('Squat', 1),
 ('Stacco', 2),
-('Lat machine', 3, 2);
+('Lat machine', 2);
 
 -- Insert rows into table 'scheda'
 INSERT INTO scheda ( nome, durata, data_inizio, data_fine, id_atleta, id_coach ) VALUES 

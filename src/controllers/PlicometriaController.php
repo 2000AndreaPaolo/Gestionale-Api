@@ -86,4 +86,27 @@ class PlicometriaController{
 			$res->json(["message" => "Plicometria non eliminata", "code" => 500 ]);
 		}
     }
+
+    // POST /admin/plicometria/last
+    static function lastPlicometria($req, $res, $service, $app){
+        $body = $req->body();
+        $body = json_decode($body, true);
+        $stm = $app->db->prepare('SELECT * FROM plicometria WHERE id_atleta=:id_atleta AND deleted=FALSE ORDER BY data_rilevazione LIMIT 1');
+        $stm->bindValue(":id_atleta", $body);
+        $stm->execute();
+        $dbres = $stm->fetchAll(PDO::FETCH_ASSOC);
+        $data = array_map(function($entry){
+            return [
+                'id_plicometria' => +$entry['id_plicometria'],
+                'pettorale' => +$entry['pettorale'],
+                'addome' => +$entry['addome'],
+                'gamba' => +$entry['gamba'],
+                'percentuale' => +$entry['percentuale'],
+                'data_rilevazione' => date("d-m-Y", strtotime($entry['data_rilevazione'])),
+                'note' => $entry['note'],
+                'id_atleta' => +$entry['id_atleta']
+            ];
+        }, $dbres);
+        $res->json($data);
+    }
 }
