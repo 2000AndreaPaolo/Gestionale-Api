@@ -92,4 +92,23 @@ class PesoController{
 
         $res->json($data);
     }
+
+    // POST /admin/peso/last
+    static function lastPeso($req, $res, $service, $app){
+        $body = $req->body();
+        $body = json_decode($body, true);
+        $stm = $app->db->prepare('SELECT * FROM peso WHERE id_atleta=:id_atleta AND deleted=FALSE ORDER BY data LIMIT 1');
+        $stm->bindValue(":id_atleta", $body);
+        $stm->execute();
+        $dbres = $stm->fetchAll(PDO::FETCH_ASSOC);
+        $data = array_map(function($entry){
+            return [
+                'id_peso' => +$entry['id_peso'],
+                'peso' => +$entry['peso'],
+                'data' => $entry['data'],
+                'note' => $entry['note']
+            ];
+        }, $dbres);
+        $res->json($data);
+    }
 }
