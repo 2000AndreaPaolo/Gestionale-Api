@@ -93,7 +93,7 @@ class NoteController{
     static function lastNote($req, $res, $service, $app){
         $body = $req->body();
         $body = json_decode($body, true);
-        $stm = $app->db->prepare('SELECT * FROM note WHERE id_atleta=:id_atleta AND deleted=FALSE ORDER BY data LIMIT 1');
+        $stm = $app->db->prepare('SELECT * FROM note WHERE id_atleta=:id_atleta AND deleted=FALSE ORDER BY data DESC LIMIT 1');
         $stm->bindValue(":id_atleta", $body);
         $stm->execute();
         $dbres = $stm->fetchAll(PDO::FETCH_ASSOC);
