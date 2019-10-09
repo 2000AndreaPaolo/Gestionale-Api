@@ -105,4 +105,29 @@ class SchedaController{
 
         $res->json($data);
     }
+
+    // GET /admin/get/scheda/atleta
+    static function getSchedaAtletaAdmin($req, $res, $service, $app){
+        $body = $req->body();
+        $body = json_decode($body, true);
+        $stm = $app->db->prepare('SELECT scheda.id_coach, scheda.id_scheda, scheda.nome, scheda.data_inizio, scheda.data_fine, scheda.durata, scheda.id_atleta, atleta.nome AS nome_atleta, atleta.cognome AS cognome_atleta FROM scheda INNER JOIN atleta ON scheda.id_atleta = atleta.id_atleta WHERE scheda.deleted = false AND atleta.id_atleta=:id_atleta ORDER BY scheda.data_inizio DESC');
+        $stm->bindValue(":id_atleta", $body);
+        $stm->execute();
+        $dbres = $stm->fetchAll(PDO::FETCH_ASSOC);
+
+        $data = array_map(function($entry){
+            return [
+                'id_scheda' => +$entry['id_scheda'],
+                'nome' => $entry['nome'],
+                'data_inizio' => date("d-m-Y", strtotime($entry['data_inizio'])),
+                'data_fine' => date("d-m-Y", strtotime($entry['data_fine'])),
+                'durata' => $entry['durata'],
+                'nome_atleta' => $entry['nome_atleta'],
+                'id_atleta' => +$entry['id_atleta'],
+                'cognome_atleta' => $entry['cognome_atleta']
+            ];
+        }, $dbres);
+
+        $res->json($data);
+    }
 }

@@ -52,6 +52,7 @@ $klein->respond('POST', '/admin/get/scheda', ['SchedaController', 'getSchede']);
 $klein->respond('POST', '/admin/scheda', ['SchedaController', 'addScheda']);
 $klein->respond('PUT', '/admin/scheda', ['SchedaController', 'modifyScheda']);
 $klein->respond('DELETE', '/admin/scheda', ['SchedaController', 'deleteScheda']);
+$klein->respond('POST', '/admin/get/scheda/atleta', ['SchedaController', 'getSchedaAtletaAdmin']);
 
 //Admin - progressione
 $klein->respond('POST', '/admin/get/progressione', ['ProgressioneController', 'getProgressione']);
