@@ -92,6 +92,7 @@ $klein->respond('POST', '/admin/prestazione', ['PrestazioneController', 'addPres
 $klein->respond('PUT', '/admin/prestazione', ['PrestazioneController', 'modifyPrestazione']);
 $klein->respond('DELETE', '/admin/prestazione', ['PrestazioneController', 'deletePrestazione']);
 $klein->respond('POST', '/admin/prestazione/massimale', ['PrestazioneController', 'getMassimale']);
+$klein->respond('POST', '/admin/prestazione/massimale/powerlifting', ['PrestazioneController', 'getMassilaiGraficoPowerlifting']);
 
 //Admin - note
 $klein->respond('post', '/admin/get/note', ['NoteController', 'getNote']);

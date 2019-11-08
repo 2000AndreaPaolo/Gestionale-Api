@@ -110,4 +110,15 @@ class PrestazioneController{
         }
         $res->json($appoggio);
     }
+
+    // POST /admin/prestazione/massimale/powerlifting
+    static function getMassilaiGraficoPowerlifting($req, $res, $service, $app){
+        $body = $req->body();
+        $body = json_decode($body, true);
+        $stm = $app->db->prepare('SELECT * FROM prestazione WHERE id_atleta=:id_atleta ORDER BY data ASC');
+        $stm->bindValue(":id_atleta", $body);
+        $stm->execute();
+        $dbres = $stm->fetchAll(PDO::FETCH_ASSOC);
+        $res->json($dbres);
+    }
 }
